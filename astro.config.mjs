@@ -45,14 +45,25 @@ export default defineConfig({
       ],
       sidebar: [
         {
-          label: 'Back to Portfolio',
-          link: 'https://timothyjohnsonwrites.com', 
+          label: 'Getting Started',
+          autogenerate: { directory: 'getting-started' },
         },
         {
-          label: 'Guides & Articles',
-          autogenerate: { directory: 'guides' },
+          label: 'Gallery Layouts',
+          autogenerate: { directory: 'gallery-layouts' },
+        },
+        {
+          label: 'Workflow & Cloud Sync',
+          autogenerate: { directory: 'cloud-workflows' },
+        },
+        {
+          label: 'Metadata & Protection',
+          autogenerate: { directory: 'metadata-protection' },
+        },
+        // You can keep the "Back to Portfolio" link at the bottom if you'd like!
+        {
+          label: 'Back to Portfolio',
+          link: 'https://timothyjohnsonwrites.com',
         },
       ],
-    }),
-  ],
 });
