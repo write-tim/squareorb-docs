@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256">
+  <!-- Generator: Adobe Illustrator 30.6.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 109)  -->
+  <defs>
+    <style>
+      .st0 {
+        opacity: .9;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 5px;
+      }
+
+      .st0, .st1 {
+        fill: none;
+        isolation: isolate;
+        stroke: #fff;
+      }
+
+      .st1 {
+        opacity: .5;
+        stroke-width: 2px;
+      }
+
+      .st2 {
+        fill: url(#radial-gradient);
+      }
+
+      .st3 {
+        fill: url(#radial-gradient1);
+      }
+
+      .st4 {
+        fill: url(#radial-gradient2);
+      }
+    </style>
+    <radialGradient id="radial-gradient" cx="-827.45" cy="667.19" fx="-827.45" fy="667.19" r=".9" gradientTransform="translate(211905 170853) scale(256 -256)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1e1535"/>
+      <stop offset="1" stop-color="#0d0a18"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient1" cx="-825.88" cy="666.22" fx="-825.88" fy="666.22" r=".5" gradientTransform="translate(211554.1333 170679.4667) scale(256 -256)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a06cff" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#a06cff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="radial-gradient2" cx="-1528.83" cy="99.07" fx="-1528.83" fy="99.07" r="1.51" gradientTransform="translate(122411 -7829) scale(80)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffd27a"/>
+      <stop offset=".45" stop-color="#ff7a9e"/>
+      <stop offset="1" stop-color="#7c5cff"/>
+    </radialGradient>
+  </defs>
+  <rect class="st2" width="256" height="256" rx="44" ry="44"/>
+  <circle class="st3" cx="128" cy="128" r="128"/>
+  <g>
+    <circle class="st4" cx="128" cy="128" r="80.41"/>
+    <circle class="st1" cx="128" cy="128" r="80.41"/>
+    <path class="st0" d="M96.84,165.19v-68.35h68.35"/>
+  </g>
+</svg>
