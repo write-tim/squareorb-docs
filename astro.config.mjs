@@ -5,6 +5,10 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'Square Orb Documentation',
+      logo: {
+        src: '/square-orb-logo.png',
+      },
+      favicon: '/square-orb-logo.png',
       customCss: [
         './src/styles/custom.css',
       ],
