@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: write-tim/sveltia-docs-test
+  base_url: https://sveltia-gatekeeper.onrender.com
+  
+publish_mode: editorial_workflow
+media_folder: /assets/media
+public_folder: /assets
+
+collections:
+  - name: "guides"
+    label: "Help Articles"
+    folder: "src/content/docs/guides"
+    extension: "mdx"
+    format: "frontmatter"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "string" }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - label: "Sidebar & Navigation Settings"
+        name: "sidebar"
+        widget: "object"
+        collapsed: false
+        required: false
+        fields:
+          - label: "Short Sidebar Label"
+            name: "label"
+            widget: "string"
+            required: false
+            
+          - label: "Sort Order"
+            name: "order"
+            widget: "number"
+            value_type: "int"
+            required: false
+            
+          - label: "Sidebar Badge"
+            name: "badge"
+            widget: "object"
+            required: false
+            collapsed: true
+            fields:
+              - label: "Badge Text"
+                name: "text"
+                widget: "string"
+                required: false
+              - label: "Badge Color"
+                name: "variant"
+                widget: "select"
+                required: false
+                default: "default"
+                options:
+                  - { label: "Default", value: "default" }
+                  - { label: "Tip (Purple)", value: "tip" }
+                  - { label: "Success (Green)", value: "success" }
+                  - { label: "Note (Blue)", value: "note" }
+                  - { label: "Caution (Orange)", value: "caution" }
+                  - { label: "Danger (Red)", value: "danger" }

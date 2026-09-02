@@ -1,0 +1,38 @@
+---
+title: Search Optimization & Sidebar Navigation
+description: Best practices for naming files, ordering the sidebar, and optimizing articles for Pagefind search.
+sidebar:
+  label: Search & Organization
+  order: 4
+  badge:
+    text: ''
+    variant: default
+---
+
+Learn how Astro Starlight manages sidebar navigation and internal search indexing.
+
+## How Search Works
+
+Search is powered by **Pagefind**, which runs locally in the user's browser. It indexes content during the site build step for instant results with zero backend latency.
+
+### Optimization Checklist
+
+* **Descriptive Titles:** Use action-oriented titles like _How to Configure SSO_ instead of _SSO Settings_.
+* **Keyword-Rich Descriptions:** Pagefind gives extra weight to the frontmatter `description` field.
+* **Semantic Headings:** Always use proper Markdown headers (`##`, `###`). Pagefind anchors search results directly to individual section headings.
+* **Synonyms in Introductory Text:** Include common alternate phrasing in the opening paragraph (e.g., mentioning "API tokens" alongside "API keys").
+
+***
+
+## Sidebar Sorting
+
+By default, articles sort alphabetically by file name. To customize the display order:
+
+```yaml
+---
+title: Managing User Roles
+sidebar:
+  order: 10
+  label: User Roles
+---
+```

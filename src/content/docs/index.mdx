@@ -1,0 +1,37 @@
+---
+title: Knowledge Base & Documentation
+description: A modern Docs-as-Code workflow architecture and content strategy demonstration.
+template: splash
+hero:
+  tagline: A demonstration of modern Docs-as-Code workflow architecture, automated CI/CD publishing, and structured content strategy.
+  image:
+    file: ../../assets/tjw_logo.png
+  actions:
+    - text: Read the Guides
+      link: /guides/getting-started/
+      icon: right-arrow
+      variant: primary
+    - text: Back to Portfolio
+      link: https://timothyjohnsonwrites.com
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Project Architecture
+
+<CardGrid stagger>
+	<Card title="Decoupled Authoring" icon="pencil">
+		Integrated Sveltia CMS provides a clean graphical interface while strictly preserving raw MDX files and Git version control.
+	</Card>
+	<Card title="Automated CI/CD" icon="rocket">
+		GitHub Actions validate strict Zod schemas and trigger lightning-fast static rebuilds upon every batch publish.
+	</Card>
+	<Card title="Component Driven" icon="puzzle">
+		Utilizes Astro and standard Markdown to seamlessly embed interactive components and maintain visual consistency.
+	</Card>
+	<Card title="Strictly Typed" icon="setting">
+		Engineered with preprocessors and frontmatter schemas to ensure the UI remains resilient against formatting errors.
+	</Card>
+</CardGrid>
