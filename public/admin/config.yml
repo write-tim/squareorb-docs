@@ -2,7 +2,7 @@
 
 backend:
   name: github
-  repo: write-tim/sveltia-docs-test
+  repo: write-tim/write-tim/squareorb-docs
   base_url: https://sveltia-gatekeeper.onrender.com
   
 publish_mode: editorial_workflow
