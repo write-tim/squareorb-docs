@@ -18,8 +18,8 @@ export default defineConfig({
           autogenerate: { directory: 'getting-started' },
         },
         {
-          label: 'Gallery Management & Customization',
-          autogenerate: { directory: 'gallery-layouts' },
+          label: 'Gallery Management',
+          autogenerate: { directory: 'gallery-management' },
         },
         {
           label: 'Workflow & Cloud Sync',
