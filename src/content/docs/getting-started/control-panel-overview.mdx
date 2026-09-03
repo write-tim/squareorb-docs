@@ -1,8 +1,8 @@
 ---
-title: "Control Panel Overview"
+title: Control Panel Overview
 description: Control panel overview documentation for the plugin admin interface.
 sidebar:
-  label: 
+  label: ''
   order: 2
   badge:
     text: ''
@@ -16,36 +16,31 @@ import { Steps } from '@astrojs/starlight/components';
 The Square Orb Gallery control panel is divided into four main tabs to manage your ecosystem:
 
 - **Global Defaults:** Controls centralized, site-wide gallery behavior, layout, Lightbox settings, and asset protection.
-
 - **Import Media:** The hub for sideloading images from your connected cloud accounts, such as Google Photos or Lightroom CC.
-
 - **Authentication:** Manage API credentials and connect/disconnect Google Photos, Adobe Lightroom CC, and the Google Vision API.
-
 - **Analytics:** View engagement telemetry, including top-performing assets by views and dwell time.
-
-* * *
+- \* \*
 
 ## **Global Defaults Tab**
 
-### **1\. Performance Data Vault (Transient Cache)**
+### **1. Performance Data Vault (Transient Cache)**
 
 **Purpose:** Manages Square Orb Gallery's caching system that stores API calls, EXIF data extraction, and DOM generation to enable instant page loads without database queries.
 
 **Features:**
 
 - "Purge High-Performance Cache" button - allows manual clearing of cached data when image metadata is updated, or a fresh pull is needed
+- \* \*
 
-* * *
-
-### **2\. Master Override Switch**
+### **2. Master Override Switch**
 
 **Purpose:** Global control enforcement across all galleries site-wide.
 
 **Toggle Option:** When enabled, forces every gallery container site-wide to inherit centralized styles, bypassing individual Gutenberg block-level overrides
 
-* * *
+* \* \*
 
-### **3\. Gallery Presentation**
+### **3. Gallery Presentation**
 
 **Purpose:** Controls the visual layout and appearance of gallery grids.
 
@@ -53,33 +48,21 @@ The Square Orb Gallery control panel is divided into four main tabs to manage yo
 
 - **Gallery Style** (dropdown) - 5 layout options:
     - Perfect Square Grid (default)
-    
     - Dynamic Masonry
-    
     - Cinematic Justified Row
-    
     - Responsive Swipe Carousel
-    
     - Interactive Traveler's Map
-
 - **Desktop Columns** (dropdown) - Responsive auto-fill or fixed 3-6 columns
-
 - **Mobile Columns** (number input) - 1-4 columns for mobile devices (default: 2)
-
 - **Grid Gap** (px) - Spacing between images (default: 15px)
-
 - **Corner Radius** (px) - Rounded corners for grid items (default: 0px)
-
 - **Enable Scroll Animations** (toggle) - Fade-in effects as images enter viewport (default: yes)
-
 - **Enable Category Filters** (toggle) - Shows taxonomy/category filter UI (default: no)
-
 - **Enable Smart Search (Experimental AI)** (toggle) - Displays live-search bar for instant grid filtering (default: yes)
     - Note: "Displays an animated live-search bar to instantly filter grid results."
+- \* \*
 
-* * *
-
-### **4\. Display & Loading Options**
+### **4. Display & Loading Options**
 
 **Purpose:** Configures the "Load More" pagination button and its styling.
 
@@ -91,51 +74,35 @@ The Square Orb Gallery control panel is divided into four main tabs to manage yo
 
 - **Initial Items to Show** (number input) - How many images load on page start (default: 20, min: 4)
     - Note: "Determines how many images load on page start. A lower number improves initial page load speed."
-
 - **Button Text** (text input) - Custom button label (default: "Load More")
-
 - **Button Styling** (dropdown) - 4 shape options:
     - Pill (Fully Rounded)
-    
     - Rounded Corners
-    
     - Square
-    
     - Inherit WordPress Theme Default
-
 - **Button Background Color** (color picker) - HEX color input + visual swatch (default: #333333)
-
 - **Button Text Color** (color picker) - HEX color input + visual swatch (default: #ffffff)
+- \* \*
 
-* * *
-
-### **5\. Digital Asset Protection**
+### **5. Digital Asset Protection**
 
 **Purpose:** Security and watermarking controls for protecting gallery images.
 
 **Settings:**
 
 - **Right-Click Protection** (toggle) - Disables right-click context menu on images (default: yes)
-
 - **Watermark Overlay (PNG)** - Non-destructive watermarking system:
     - Image preview display (max 200px × 100px)
-    
     - "Select PNG Watermark" button - media uploader integration
-    
     - "Remove Watermark File" button - conditionally displayed
-    
     - Note: "Select a transparent PNG. We non-destructively stamp generated sizes, keeping your original master files pristine."
-
 - **Auto-Watermark Native Uploads** (toggle) - Automatically applies watermark to newly uploaded media (default: no)
-
 - **Watermark Position** (dropdown) - 2 options:
     - Bottom Right (default)
-    
     - Center
+- \* \*
 
-* * *
-
-### **6\. Lightbox Presentation**
+### **6. Lightbox Presentation**
 
 **Purpose:** Comprehensive lightbox/modal viewer customization.
 
@@ -143,17 +110,11 @@ The Square Orb Gallery control panel is divided into four main tabs to manage yo
 
 - Interactive preview showing:
     - Dark overlay background
-    
     - Media display area with border/radius styling
-    
     - Navigation controls (prev/next arrows)
-    
     - Close button
-    
     - Play button (for videos)
-    
     - Filmstrip thumbnail carousel at the bottom
-    
     - Title and filmstrip preview grid
 
 #### **Video**
@@ -164,68 +125,43 @@ The Square Orb Gallery control panel is divided into four main tabs to manage yo
 
 - **Overlay Matte Color** (color picker) - Dark overlay background (default: rgba(0, 0, 0, 0.95))
     - Supports HEX or RGBA values
-    
     - Color swatch picker
-    
     - Note: "Supports HEX or RGBA (for transparency). Use the swatch to select a solid color."
-
 - **Transition Style** (dropdown) - animation options:
     - Instant Swap (None) (default)
-    
     - Smooth Opacity Fade
-    
     - Gaussian Blur Dissolve
-    
     - Hardware Accelerated Clip Wipe
-    
     - Stage Curtain
-    
     - Vertical Swipe
-    
     - Directional Slide
-    
     - Pop & Zoom
-    
     - Elastic Bounce
-    
     - 3D Axis Flip
-    
     - Quarter Spin
-
 - **Media Border Color** (color picker) - Frame border around images (default: #ffffff)
     - Color input + swatch
-
 - **Media Border Width** (px) - Border thickness (default: 0px, max: 20px)
-
 - **Media Corner Radius** (px) - Rounded corners on media (default: 0px, max: 50px)
 
 #### **Navigation & Controls**
 
 - **Enable Slideshow Mode** (toggle) - Auto-advance through images (default: yes)
-
 - **Slideshow Speed** (seconds) - Interval between slides (default: 5 seconds, 1-20 range)
-
 - **Control Buttons Background** (color picker) - Button overlay color (default: rgba(0,0,0,0.5))
     - Controls: prev/next arrows, close, play buttons
-
 - **Control Buttons Color** (color picker) - Icon/text color on buttons (default: #ffffff)
-
 - **Control Buttons Radius** (px) - Button border radius (default: 4px, max: 50px)
 
 #### **Sub-section: Information Bar Display**
 
 - **Enable Gallery Filmstrip** (toggle) - Shows thumbnail carousel at bottom (default: yes)
-
 - **Show Titles** (toggle) - Display image titles (default: yes)
-
 - **Show Captions** (toggle) - Display image captions/descriptions (default: yes)
-
 - **Show Advanced EXIF Data** (toggle) - Display camera metadata (default: yes)
-
 - **Enable Social Sharing** (toggle) - Share buttons with universal app link formatting (default: yes)
     - Note: "Automatically formats URLs for mobile Universal App Links."
-
-* * *
+- \* \*
 
 ## **Import Media Tab**
 
@@ -234,20 +170,13 @@ The Square Orb Gallery control panel is divided into four main tabs to manage yo
 **Features:**
 
 - Displays cloud service import tools based on active authenticated connections
-
 - "Select Cloud Photos via Google Canvas" button (requires authentication)
-
 - "Sideload to WordPress Core" button (appears after selection, shows count)
-
 - Status indicator showing import state
-
 - Photo grid display for selected assets
-
 - Error log display
-
 - Authentication requirement notice with link to the Authentication tab
-
-* * *
+- \* \*
 
 ## **Authentication Tab**
 
@@ -258,22 +187,14 @@ The Square Orb Gallery control panel is divided into four main tabs to manage yo
 **Features:**
 
 - Connection status display (active/not connected)
-
 - Authorized redirect URI display (read-only code block)
-
 - OAuth connection button
-
 - Settings form with:
     - Google OAuth Client ID (text input)
-    
     - Google OAuth Client Secret (password input)
-    
     - Google Vision API Key (password input, experimental AI auto-tagging)
-    
     - Note on experimental AI Vision API
-    
     - "Save Google Credentials" button
-
 - Disconnect button (appears when connected)
 
 ### **Adobe Lightroom CC Engine**
@@ -281,23 +202,15 @@ The Square Orb Gallery control panel is divided into four main tabs to manage yo
 **Features:**
 
 - Parallel layout to Google section
-
 - Connection status display
-
 - Authorized redirect URI
-
 - OAuth connection button
-
 - Settings form with:
     - Adobe Client ID / API Key (text input)
-    
     - Adobe Client Secret (password input)
-    
     - "Save Adobe Credentials" button
-
 - Disconnect button (appears when connected)
-
-* * *
+- \* \*
 
 ## **Analytics Tab**
 
@@ -306,7 +219,6 @@ The Square Orb Gallery control panel is divided into four main tabs to manage yo
 **Features:**
 
 - **Engagement Telemetry** section
-
 - Data description: "Discover which assets are capturing the most attention. Data is securely tracked via silent browser beacons."
 
 **When No Data Collected:**
@@ -316,32 +228,20 @@ The Square Orb Gallery control panel is divided into four main tabs to manage yo
 **When Data Available:**
 
 - Chart.js visualization - Shows engagement metrics
-
 - Data table with columns:
     - Thumbnail preview
-    
     - Asset Title
-    
     - Total Views
-    
     - Dwell Time (seconds)
-
 - 10 top-performing items displayed
-
-* * *
+- \* \*
 
 ## **Key UX Features**
 
 1. **Live Previews** - Button styling and lightbox mockup update in real-time
-
-3. **Color Pickers** - Both text input and visual swatch selection
-
-5. **Conditional Displays** - Elements show/hide based on connection status
-
-7. **Responsive Layout** - Auth section uses flexbox for side-by-side panels
-
-9. **Status Indicators** - Connection status, asset engine status
-
-11. **Helpful Notes** - Small text hints throughout for each setting
-
-13. **Organized Sections** - Related settings grouped under colored boxes with clear hierarchy
+2. **Color Pickers** - Both text input and visual swatch selection
+3. **Conditional Displays** - Elements show/hide based on connection status
+4. **Responsive Layout** - Auth section uses flexbox for side-by-side panels
+5. **Status Indicators** - Connection status, asset engine status
+6. **Helpful Notes** - Small text hints throughout for each setting
+7. **Organized Sections** - Related settings grouped under colored boxes with clear hierarchy
