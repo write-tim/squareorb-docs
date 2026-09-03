@@ -18,7 +18,7 @@ export default defineConfig({
           autogenerate: { directory: 'getting-started' },
         },
         {
-          label: 'Gallery Layouts',
+          label: 'Gallery Management & Customization',
           autogenerate: { directory: 'gallery-layouts' },
         },
         {
