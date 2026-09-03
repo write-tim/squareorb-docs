@@ -22,16 +22,16 @@ export default defineConfig({
           autogenerate: { directory: 'gallery-management' },
         },
         {
-          label: 'Workflow & Cloud Sync',
-          autogenerate: { directory: 'cloud-workflows' },
+          label: 'Cloud Integration',
+          autogenerate: { directory: 'cloud-integration' },
         },
         {
-          label: 'Metadata & Protection',
-          autogenerate: { directory: 'metadata-protection' },
+          label: 'Advanced Features',
+          autogenerate: { directory: 'advanced-features' },
         },
         {
-          label: 'Back to Portfolio',
-          link: 'https://timothyjohnsonwrites.com',
+          label: 'Back to Square Orb',
+          link: 'https://awesomediscoveryzone.com/squareorb',
         },
       ],
     }),
