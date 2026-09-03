@@ -1,0 +1,28 @@
+---
+title: Mastering the Canvas Block
+description: Learn how to use the Gallery Canvas block, add media, and configure layout options.
+sidebar:
+  label: ''
+  order: 3
+  badge:
+    text: ''
+    variant: default
+---
+
+Square Orb Gallery is built primarily for the Gutenberg block editor.
+
+- **Adding Media:** If no images are selected, the block displays a prompt to assign media.
+
+- **Reordering:** Use intuitive drag-and-drop functionality within the block settings sidebar to reorder how images appear in your gallery.
+
+- **Video Integration:** Each image entry includes a "Video URL" field where you can paste YouTube, Vimeo, or standard MP4 links to play in the Lightbox.
+
+## Layout Options
+
+| Layout | Grid Cols | Mobile Cols | Gap | Radius | Scroll Anim | Filters | Search | Per Page | Button Text | Button Shape |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **Grid** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Masonry** | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Justified** | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Carousel** | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Map** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
