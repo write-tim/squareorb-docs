@@ -3,7 +3,7 @@ title: "FAQs"
 description: "Frequently asked questions about Square Orb Gallery features, cloud storage support, layout configuration, and metadata."
 sidebar:
   label: FAQs
-  order: 5
+  order: 3
   badge:
     text: ''
     variant: default
