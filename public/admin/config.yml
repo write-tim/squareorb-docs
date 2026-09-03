@@ -84,9 +84,9 @@ collections:
                   - { label: "Caution (Orange)", value: "caution" }
                   - { label: "Danger (Red)", value: "danger" }
 
-  - name: "cloud-workflows"
-    label: "3. Workflow & Cloud Sync"
-    folder: "src/content/docs/cloud-workflows"
+  - name: "cloud-integration"
+    label: "3. Cloud Integration"
+    folder: "src/content/docs/cloud-integration"
     extension: "mdx"
     format: "frontmatter"
     create: true
@@ -122,9 +122,9 @@ collections:
                   - { label: "Caution (Orange)", value: "caution" }
                   - { label: "Danger (Red)", value: "danger" }
 
-  - name: "metadata-protection"
-    label: "4. Metadata & Protection"
-    folder: "src/content/docs/metadata-protection"
+  - name: "advanced-features"
+    label: "4. Advanced Features"
+    folder: "src/content/docs/advanced-features"
     extension: "mdx"
     format: "frontmatter"
     create: true
