@@ -1,0 +1,32 @@
+---
+title: Cloud Integration Overview
+description: Configure cloud integrations.
+sidebar:
+  label: ''
+  order: 1
+  badge:
+    text: ''
+    variant: default
+---
+
+To use the cloud features of Square Orb Gallery (such as Google Photos import or Adobe Lightroom CC integration), you need to establish a secure connection between your WordPress site and these services. This is done through "developer accounts," which serve as a digital bridge, ensuring that only your specific website can access your private cloud assets.
+
+### Why Do I Need a Developer Account?
+
+Cloud services like Google and Adobe protect your personal photos and data behind high-security gates. To let your website "talk" to these services, you must register your site as an official application. By creating a project in their respective Developer Consoles, you receive unique keys (Client IDs and Secrets) that identify your site as a trusted entity.
+
+Without these, your website has no permission to request your media, and the cloud services will deny any attempts to connect for security reasons.
+
+- [Setting up your Adobe Developer Account](https://awesomediscoveryzone.com/auragallery/docs/aura-gallery/cloud-integration-media/setting-up-your-adobe-developer-account/)
+
+- [Setting up your Google Developer Account](https://awesomediscoveryzone.com/auragallery/docs/aura-gallery/cloud-integration-media/setting-up-your-google-developer-account/)
+
+### Creating Authentication Credentials
+
+After setting up your developer account, you can create the necessary credentials:
+
+- [Create a Google OAuth Client ID and Secret](/auragallery/docs/aura-gallery/cloud-integration-media/create-a-google-oauth-client-id-and-secret/)
+
+- [Create a Google Vision API Key](/auragallery/docs/aura-gallery/cloud-integration-media/create-a-google-vision-api-key/)
+
+- [Create an Adobe Client ID and Secret](/auragallery/docs/aura-gallery/cloud-integration-media/create-an-adobe-client-id-and-secret/)

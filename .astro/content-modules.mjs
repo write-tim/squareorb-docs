@@ -1,0 +1,12 @@
+
+export default new Map([
+["src/content/docs/getting-started/control-panel-overview.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fgetting-started%2Fcontrol-panel-overview.mdx&astroContentModuleFlag=true")],
+["src/content/docs/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Findex.mdx&astroContentModuleFlag=true")],
+["src/content/docs/getting-started/faqs.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fgetting-started%2Ffaqs.mdx&astroContentModuleFlag=true")],
+["src/content/docs/gallery-management/global-vs-local-overrides.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fgallery-management%2Fglobal-vs-local-overrides.mdx&astroContentModuleFlag=true")],
+["src/content/docs/gallery-management/asset-protection.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fgallery-management%2Fasset-protection.mdx&astroContentModuleFlag=true")],
+["src/content/docs/gallery-management/interactive-features.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fgallery-management%2Finteractive-features.mdx&astroContentModuleFlag=true")],
+["src/content/docs/getting-started/download-install-square-orb-gallery.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fgetting-started%2Fdownload-install-square-orb-gallery.mdx&astroContentModuleFlag=true")],
+["src/content/docs/gallery-management/mastering-the-canvas-block.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fgallery-management%2Fmastering-the-canvas-block.mdx&astroContentModuleFlag=true")],
+["src/content/docs/gallery-management/layout-style.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fgallery-management%2Flayout-style.mdx&astroContentModuleFlag=true")]]);
+		
