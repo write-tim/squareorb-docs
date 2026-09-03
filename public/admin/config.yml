@@ -46,9 +46,9 @@ collections:
                   - { label: "Caution (Orange)", value: "caution" }
                   - { label: "Danger (Red)", value: "danger" }
 
-  - name: "gallery-layouts"
-    label: "2. Gallery Layouts"
-    folder: "src/content/docs/gallery-layouts"
+  - name: "gallery-management"
+    label: "2. Gallery Management & Customization"
+    folder: "src/content/docs/gallery-management"
     extension: "mdx"
     format: "frontmatter"
     create: true
