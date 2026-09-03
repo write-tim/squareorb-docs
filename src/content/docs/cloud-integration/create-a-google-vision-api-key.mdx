@@ -1,0 +1,39 @@
+---
+title: "Create a Google Vision API Key"
+description: Configure Google integrations.
+sidebar:
+  label: ''
+  order: 5
+  badge:
+    text: ''
+    variant: default
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+The Vision API enables the "Experimental AI Auto-Tagging" feature.
+
+<Steps>
+
+1. **Enable the Vision API:**
+    - In your Google Cloud Project, navigate to **APIs & Services > Library**.
+    
+    - Search for **Cloud Vision API**.
+    
+    - Click on it and select **Enable**.
+
+2. **Generate an API Key:**
+    - Go to **APIs & Services > Credentials**.
+    
+    - Click **Create Credentials** and select **API key**.
+    
+    - A dialog will appear with your new API key. Copy this key.
+
+3. **Restricting the Key (Recommended):**
+    - For security, click **Edit API key** on your new key.
+    
+    - Under **API restrictions**, select **Restrict key** and choose **Cloud Vision API** from the dropdown.
+    
+    - Save your changes. Enter this key into the Google Vision API field in the Aura Gallery Authentication tab.
+
+</Steps>

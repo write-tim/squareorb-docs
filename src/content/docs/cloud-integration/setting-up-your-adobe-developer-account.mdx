@@ -1,0 +1,33 @@
+---
+title: Setting Up your Adobe Developer Account
+description: Configure Adobe integrations.
+sidebar:
+  label: ''
+  order: 2
+  badge:
+    text: ''
+    variant: default
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+This is required if you want to import your photos directly from Adobe Lightroom CC.
+
+<Steps>
+
+1. **Access the Console:** Visit the [Adobe Developer Console](https://www.google.com/search?q=https://developer.adobe.com/console/) and sign in with your Adobe ID.
+
+2. **Create a Project:**
+    - Click **Create new project** from the quick start menu. This creates a container for your API credentials.
+
+3. **Add an API:**
+    - Inside your project, click **Add API**.
+    
+    - Select the **Lightroom API** (or the relevant Creative Cloud API) from the list.
+    
+    - Choose **OAuth 2.0** as the authentication method. This ensures that your site can securely "log in" to your Adobe account without storing your actual password.
+
+4. **Save Credentials:**
+    - Once the API is added, the console will generate your **Client ID** and **Client Secret**. Keep these in a safe place, as you will need to copy and paste them into the Aura Gallery settings page in WordPress.
+
+</Steps>

@@ -1,0 +1,39 @@
+---
+title: Setting Up your Google Developer Account
+description: Configure Google integrations.
+sidebar:
+  label: ''
+  order: 3
+  badge:
+    text: ''
+    variant: default
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+This is required if you want to import photos from Google Photos or use the experimental AI tagging features.
+
+<Steps>
+
+1. **Access the Console:** Visit the [Google Cloud Console](https://console.cloud.google.com/) and sign in with your Google account.
+
+2. **Create a New Project:**
+    - Click the project dropdown at the top of the page.
+    
+    - Click **New Project**.
+    
+    - Give it a name (e.g., "Aura Gallery Site") and click **Create**.
+
+3. **Enable APIs:**
+    - Once inside your new project, navigate to **APIs & Services > Library**.
+    
+    - Search for the specific services you need (e.g., "Google Photos Picker API" or "Cloud Vision API").
+    
+    - Click on the API and select **Enable**.
+
+4. **Configure Consent:**
+    - Go to **OAuth consent screen** in the sidebar.
+    
+    - Choose **External** and fill in your contact information. This tells Google who owns the "application" (your website).
+
+    </Steps>

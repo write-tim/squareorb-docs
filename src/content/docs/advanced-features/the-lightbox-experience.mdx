@@ -1,0 +1,38 @@
+---
+title: "The Lightbox Experience"
+description: Advanced features.
+sidebar:
+  label: ''
+  order: 1
+  badge:
+    text: ''
+    variant: default
+---
+
+The Lightbox overlay can be heavily customized under the Global Defaults tab:
+
+- **Transitions:** Choose the animation style when opening/navigating images (Instant Swap, Smooth Opacity Fade, Hardware Accelerated Wipe, Directional Slide, Pop & Zoom, or 3D Axis Flip).
+
+- **Overlay & Media Style:** Customize the Overlay Matte Color, Media Border Color, Width, and Radius.
+
+- **Controls & Slideshow:** Enable automatic slideshows, set rotation speed, and style the control buttons (Background, Color, Radius).
+
+- **Information Bar:** Toggle the display of the thumbnail Filmstrip, Image Titles, Captions, Advanced EXIF Data (aperture, shutter speed, ISO, focal length), and Social Sharing links.
+
+- **Video Playback:** Enable **Autoplay Lightbox Videos** to automatically play supported video items when they are opened in the Lightbox.
+
+### Available Transitions
+
+| Value | Label | Effect |
+| --- | --- | --- |
+| `none` | Instant Swap | No animation — image swaps immediately |
+| `fade` | Smooth Opacity Fade | Current image fades to 0 opacity, new image fades in |
+| `blur` | Gaussian Blur Dissolve | Blurs and scales out, then sharpens and scales back in — rack focus feel |
+| `wipe` | Hardware Accelerated Clip Wipe | `clip-path` reveals the new image left→right |
+| `curtain` | Stage Curtain | `clip-path` reveals from center outward in both directions simultaneously |
+| `swipe` | Vertical Swipe | Direction-aware `clip-path` reveal from top (next) or bottom (prev) |
+| `slide` | Directional Slide | New image slides in from right (next) or left (prev) via `translateX` |
+| `zoom` | Pop & Zoom | New image scales up from 80% with a slight overshoot easing |
+| `bounce` | Elastic Bounce | Scales up from 60% with a strong spring overshoot (`cubic-bezier(0.34, 1.56, 0.64, 1)`) |
+| `flip` | 3D Axis Flip | Rotates in on the Y axis (`rotateY`) — requires `perspective: 1200px` on the stage |
+| `spin` | Quarter Spin | dRotates 90° in/out with a scale, direction-aware (clockwise or counter-clockwise) |
