@@ -1,2 +1,2 @@
-# sveltia-docs-test
-Sveltia CMS Testing
+# Square Orb Documentation
+A comprehensive guide to using the Square Orb Gallery plugin.
