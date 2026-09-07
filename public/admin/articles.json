@@ -1,0 +1,163 @@
+[
+  {
+    "title": "Control Panel Overview",
+    "route": "/getting-started/control-panel-overview/",
+    "desc": "Control panel overview documentation for the plugin admin interface.",
+    "category": "1. Getting Started",
+    "file": "getting-started/control-panel-overview.mdx"
+  },
+  {
+    "title": "Download & Install Square Orb Gallery",
+    "route": "/getting-started/download-install-square-orb-gallery/",
+    "desc": "How to download and install the plugin.",
+    "category": "1. Getting Started",
+    "file": "getting-started/download-install-square-orb-gallery.mdx"
+  },
+  {
+    "title": "FAQs",
+    "route": "/getting-started/faqs/",
+    "desc": "Frequently asked questions about Square Orb Gallery features, cloud storage support, layout configuration, and metadata.",
+    "category": "1. Getting Started",
+    "file": "getting-started/faqs.mdx"
+  },
+  {
+    "title": "Asset Protection",
+    "route": "/gallery-management/asset-protection/",
+    "desc": "Configure watermarks and right-click protection to deter unauthorized downloading of your gallery images.",
+    "category": "2. Gallery Management",
+    "file": "gallery-management/asset-protection.mdx"
+  },
+  {
+    "title": "Global vs. Local Overrides",
+    "route": "/gallery-management/global-vs-local-overrides/",
+    "desc": "Learn how to manage gallery styles using global defaults and local block overrides.",
+    "category": "2. Gallery Management",
+    "file": "gallery-management/global-vs-local-overrides.mdx"
+  },
+  {
+    "title": "Interactive Features",
+    "route": "/gallery-management/interactive-features/",
+    "desc": "Configure interactive gallery features like animations, filters, search, and loading buttons.",
+    "category": "2. Gallery Management",
+    "file": "gallery-management/interactive-features.mdx"
+  },
+  {
+    "title": "Layout Style Deep Dive",
+    "route": "/gallery-management/layout-style/",
+    "desc": "Explore the five distinct presentation modes and layout customization options.",
+    "category": "2. Gallery Management",
+    "file": "gallery-management/layout-style.mdx"
+  },
+  {
+    "title": "Mastering the Canvas Block",
+    "route": "/gallery-management/mastering-the-canvas-block/",
+    "desc": "Learn how to use the Gallery Canvas block, add media, and configure layout options.",
+    "category": "2. Gallery Management",
+    "file": "gallery-management/mastering-the-canvas-block.mdx"
+  },
+  {
+    "title": "Cloud Import Workflow",
+    "route": "/cloud-integration/cloud-import-workflow/",
+    "desc": "Cloud import workflow.",
+    "category": "3. Cloud Integration",
+    "file": "cloud-integration/cloud-import-workflow.mdx"
+  },
+  {
+    "title": "Cloud Integration Overview",
+    "route": "/cloud-integration/cloud-integration-overview/",
+    "desc": "Configure cloud integrations.",
+    "category": "3. Cloud Integration",
+    "file": "cloud-integration/cloud-integration-overview.mdx"
+  },
+  {
+    "title": "Connecting Cloud Accounts",
+    "route": "/cloud-integration/connecting-cloud-accounts/",
+    "desc": "Configure cloud integrations.",
+    "category": "3. Cloud Integration",
+    "file": "cloud-integration/connecting-cloud-accounts.mdx"
+  },
+  {
+    "title": "Create a Google OAuth Client ID and Secret",
+    "route": "/cloud-integration/create-a-google-oauth-client-id-and-secret/",
+    "desc": "Configure Google integrations.",
+    "category": "3. Cloud Integration",
+    "file": "cloud-integration/create-a-google-oauth-client-id-and-secret.mdx"
+  },
+  {
+    "title": "Create a Google Vision API Key",
+    "route": "/cloud-integration/create-a-google-vision-api-key/",
+    "desc": "Configure Google integrations.",
+    "category": "3. Cloud Integration",
+    "file": "cloud-integration/create-a-google-vision-api-key.mdx"
+  },
+  {
+    "title": "Create an Adobe Client ID and Secret",
+    "route": "/cloud-integration/create-an-adobe-client-id-and-secret/",
+    "desc": "Configure Adobe integrations.",
+    "category": "3. Cloud Integration",
+    "file": "cloud-integration/create-an-adobe-client-id-and-secret.mdx"
+  },
+  {
+    "title": "Setting Up your Adobe Developer Account",
+    "route": "/cloud-integration/setting-up-your-adobe-developer-account/",
+    "desc": "Configure Adobe integrations.",
+    "category": "3. Cloud Integration",
+    "file": "cloud-integration/setting-up-your-adobe-developer-account.mdx"
+  },
+  {
+    "title": "Setting Up your Google Developer Account",
+    "route": "/cloud-integration/setting-up-your-google-developer-account/",
+    "desc": "Configure Google integrations.",
+    "category": "3. Cloud Integration",
+    "file": "cloud-integration/setting-up-your-google-developer-account.mdx"
+  },
+  {
+    "title": "Summary Checklist for Authentication",
+    "route": "/cloud-integration/summary-checklist-for-authentication/",
+    "desc": "Configure cloud integrations.",
+    "category": "3. Cloud Integration",
+    "file": "cloud-integration/summary-checklist-for-authentication.mdx"
+  },
+  {
+    "title": "Performance & Caching",
+    "route": "/advanced-features/performance-caching/",
+    "desc": "Advanced features.",
+    "category": "4. Advanced Features",
+    "file": "advanced-features/performance-caching.mdx"
+  },
+  {
+    "title": "Shortcode Reference",
+    "route": "/advanced-features/shortcode-reference/",
+    "desc": "Advanced features.",
+    "category": "4. Advanced Features",
+    "file": "advanced-features/shortcode-reference.mdx"
+  },
+  {
+    "title": "The Lightbox Experience",
+    "route": "/advanced-features/the-lightbox-experience/",
+    "desc": "Advanced features.",
+    "category": "4. Advanced Features",
+    "file": "advanced-features/the-lightbox-experience.mdx"
+  },
+  {
+    "title": "Troubleshooting FAQ",
+    "route": "/advanced-features/troubleshooting-faq/",
+    "desc": "Advanced features.",
+    "category": "4. Advanced Features",
+    "file": "advanced-features/troubleshooting-faq.mdx"
+  },
+  {
+    "title": "Understanding Analytics",
+    "route": "/advanced-features/understanding-analytics/",
+    "desc": "Advanced features.",
+    "category": "4. Advanced Features",
+    "file": "advanced-features/understanding-analytics.mdx"
+  },
+  {
+    "title": "Square Orb Documentation",
+    "route": "/",
+    "desc": "The official knowledge base for the Square Orb WordPress gallery plugin.",
+    "category": "Home",
+    "file": "index.mdx"
+  }
+]
