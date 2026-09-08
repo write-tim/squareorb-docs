@@ -91,30 +91,30 @@ svg:where(.astro-c6vsoqas){color:var(--sl-icon-color);font-size:var(--sl-icon-si
 <hr>
 <h3 id="lightbox-lifecycle--media-flow">Lightbox Lifecycle &#x26; Media Flow</h3>
 <pre class="mermaid" dir="ltr">flowchart TD
-    A[Visitor Clicks Gallery Item] --> B[Open Full-Screen Lightbox Overlay]
-    B --> C[Update Browser URL Hash: #sorb-img-{id}]
-    B --> D{Asset Media Type}
+    A["Visitor Clicks Gallery Item"] --> B["Open Full-Screen Lightbox Overlay"]
+    B --> C["Update Browser URL Hash: #sorb-img-{id}"]
+    B --> D{"Asset Media Type"}
     
-    D -->|Static Photograph| E[Load High-Res Image: sorb-pro-highres]
-    E --> F[Display Camera EXIF Metadata Badges]
+    D -->|Static Photograph| E["Load High-Res Image: sorb-pro-highres"]
+    E --> F["Display Camera EXIF Metadata Badges"]
     
-    D -->|Video URL Present| G[Initialize Responsive Video Player]
-    G --> G1[YouTube / Vimeo / HTML5 MP4]
-    G1 --> G2{Autoplay Videos Enabled?}
-    G2 -->|Yes| G3[Start Video Playback Immediately]
-    G2 -->|No| G4[Display Video Player Paused]
+    D -->|Video URL Present| G["Initialize Responsive Video Player"]
+    G --> G1["YouTube / Vimeo / HTML5 MP4"]
+    G1 --> G2{"Autoplay Videos Enabled?"}
+    G2 -->|Yes| G3["Start Video Playback Immediately"]
+    G2 -->|No| G4["Display Video Player Paused"]
 
-    F --> H[Mount Interactive Filmstrip &#x26; Navigation]
+    F --> H["Mount Interactive Filmstrip &#x26; Navigation"]
     G3 --> H
     G4 --> H
 
-    H --> I[Navigation Event&#x3C;br/>Arrow Keys / Touch Swipe / Filmstrip Click]
-    I --> J[Unload Active Video Player&#x3C;br/>Prevent Background Audio]
-    J --> K[Trigger Selected CSS Transition&#x3C;br/>1 of 11 GPU-Accelerated Animations]
+    H --> I["Navigation Event&#x3C;br/>Arrow Keys / Touch Swipe / Filmstrip Click"]
+    I --> J["Unload Active Video Player&#x3C;br/>Prevent Background Audio"]
+    J --> K["Trigger Selected CSS Transition&#x3C;br/>1 of 11 GPU-Accelerated Animations"]
     K --> D
 
-    H --> L[Close Event&#x3C;br/>Escape Key / Matte Click / Browser Back]
-    L --> M[Teardown Modal &#x26; Restore Document Focus]</pre>
+    H --> L["Close Event&#x3C;br/>Escape Key / Matte Click / Browser Back"]
+    L --> M["Teardown Modal &#x26; Restore Document Focus"]</pre>
 <hr>
 <h3 id="available-transitions">Available Transitions</h3>
 <p>Square Orb includes 11 CSS-accelerated lightbox transition effects:</p>
