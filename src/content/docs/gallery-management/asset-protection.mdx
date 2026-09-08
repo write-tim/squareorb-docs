@@ -9,8 +9,49 @@ sidebar:
     variant: default
 ---
 
-Square Orb Gallery includes built-in tools to deter unauthorized downloading.
+Square Orb provides multi-layered asset protection tools designed to safeguard creative assets against casual downloading, unauthorized scraping, and content theft.
 
-- **Watermark Overlay (PNG):** Upload a transparent PNG to stamp over your images. You can set the position (e.g., bottom right or center). This is non-destructive and preserves your original uploaded files. You can also enable **Auto-Watermark Native Uploads** to apply this automatically to all new uploads.
+---
 
-- **Right-Click Protection:** Disables the browser's native right-click "save image" function on gallery items and within the Lightbox.
+## 1. Right-Click Protection
+
+When enabled, Square Orb actively blocks context menu interactions across your galleries and lightbox presentations.
+
+* **Scope of Protection:** Applies directly to gallery container items (`.sorb-protected`) and the full-screen lightbox overlay (`.sorb-lightbox-protected`).
+* **Interaction Prevention:** Disables native right-click context menus (`Save Image As...`, `Copy Image Link`) and prevents users from dragging images off the page.
+* **Granular Control:** Can be enabled globally on the **Global** tab (`tab=sitewide`) or toggled individually on each **Square Orb Canvas** block.
+* *Security Note:* While right-click protection effectively deters casual website visitors, it is a client-side deterrent. Determined users with browser inspection tools can still access network assets. For absolute asset security, pair right-click protection with non-destructive watermarking.
+
+---
+
+## 2. Non-Destructive PNG Watermarking Engine
+
+Square Orb features a server-side watermarking engine built to protect your high-resolution images without degrading your original files.
+
+* **Non-Destructive Stamping:** When a watermark is applied, Square Orb stamps only the web-generated intermediate sizes (`sorb-pro-highres`, `large`, `medium_large`). Your original, untouched master file is preserved in your uploads directory.
+* **Transparent PNG Support:** Stamping preserves alpha channel transparency, ensuring clean visual stamps without opaque rectangular artifacts.
+* **Proportional Scaling:** Watermarks automatically scale to 15% of the target image's width (maintaining aspect ratio) with a 3% edge padding.
+* **Positioning:** Choose between **Bottom Right** (ideal for discrete logos or copyright signatures) or **Center** (ideal for proofing and stock media previews).
+
+---
+
+## 3. Auto-Watermarking on Upload
+
+Under **Square Orb > Global**:
+
+* Enable **Auto-Watermark Native Uploads** to automatically process and stamp all new images as they are uploaded to the WordPress Media Library.
+* Cloud imports through Google Photos are also processed automatically when watermarking is configured.
+
+---
+
+## 4. Media Library Bulk Actions
+
+If you already have images in your Media Library or want to watermark or remove watermarks from specific batches:
+
+1. Navigate to **Media > Library** in your WordPress dashboard.
+2. Switch to the **List View** (the icon with rows, top left above the media items).
+3. Select the checkboxes next to the images you wish to modify.
+4. Open the **Bulk Actions** dropdown menu at the top of the table:
+   * Select **Apply Square Orb Watermark** to stamp the selected media.
+   * Select **Remove Square Orb Watermark** to regenerate intermediate sizes and remove the watermark cleanly.
+5. Click **Apply**. Square Orb will batch-process the images and display a confirmation notice.

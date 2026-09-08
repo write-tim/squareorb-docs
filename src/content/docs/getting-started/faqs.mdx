@@ -12,43 +12,51 @@ sidebar:
 import FAQ from '../../../components/FAQ.astro';
 
 <FAQ title="What cloud storage services does Square Orb Gallery support?">
-Square Orb Gallery supports both Google Photos and Adobe Lightroom CC cloud import. Google Photos connects via OAuth and uses the Google Photos picker for selecting assets. Lightroom CC import is available when you configure Adobe credentials under the Authentication tab.
+Square Orb Gallery supports cloud integration with both Google Photos and Adobe Creative Cloud. Google Photos connects via OAuth 2.0 and provides an interactive Google Photos Picker for selecting and sideloading photos directly into your WordPress Media Library. Adobe Creative Cloud connects via OAuth on the Authentication tab, with direct Lightroom media browsing and import currently scheduled for the upcoming v1.2 release.
 </FAQ>
 
 <FAQ title="Can I use Square Orb Gallery without connecting a cloud account?">
-Yes. Cloud import is optional. You can select images directly from your WordPress Media Library inside the Square Orb **Gallery Canvas** block and build galleries without any cloud connection.
+Yes. Cloud import is completely optional. You can select images directly from your WordPress Media Library inside the **Square Orb Canvas** block and build galleries without connecting any cloud accounts.
 </FAQ>
 
 <FAQ title="How do I manage the layout of my galleries?">
-Set site-wide defaults in **Global Defaults** for layout style, columns, spacing, and lightbox behavior. When the **Master Override Switch** is disabled, individual gallery blocks can override those defaults with block-level settings inside the Gutenberg sidebar.
+Configure site-wide defaults in **Square Orb > Presentation Defaults** for layout style, column count, spacing, heading styles, and lightbox behavior. When the **Master Override Switch** is disabled, individual gallery blocks can override those defaults with block-level settings inside the Gutenberg sidebar.
 </FAQ>
 
 <FAQ title="How do I reset a gallery block to global defaults?">
-Open the gallery block in the editor and click **Clear Canvas Overrides** in the block sidebar. This removes any local overrides and restores the current global settings for that gallery.
+Open the gallery block in the editor and click **Clear Canvas Overrides** in the block sidebar under "Reset Options". This removes any local overrides and restores the current global settings for that gallery.
 </FAQ>
 
 <FAQ title="How does the “Master Override Switch” work?">
-When enabled, the Master Override Switch forces every Square Orb Gallery block on the site to follow the centralized Global Defaults and disables per-block display overrides.
+When enabled, the Master Override Switch (located under **Presentation Defaults**) forces every Square Orb Gallery block on the site to strictly inherit your centralized presentation defaults, disabling per-block style overrides. However, content-level values like your selected images and custom heading text remain per-block.
+</FAQ>
+
+<FAQ title="Why don't I see the Analytics tab in the Control Panel?">
+The **Analytics** tab is conditionally rendered to keep your admin menu clean if you do not track metrics. To enable it, navigate to **Square Orb > Global**, toggle on **Enable Engagement Telemetry**, and save settings. The Analytics tab will appear immediately.
+</FAQ>
+
+<FAQ title="Can I add headings to my galleries?">
+Yes. Square Orb supports gallery headings with customizable HTML tags (`h2` through `h6` or `p`), theme inheritance or Square Orb typography presets, and an optional divider line. You can enable headings globally under Presentation Defaults and customize the text individually within each block's sidebar.
 </FAQ>
 
 <FAQ title="Can I protect my images from being downloaded?">
-Yes. Square Orb Gallery includes **Right-Click Protection** for gallery items and lightbox images. This deters casual downloads, but it is a browser-side protection and not a substitute for secure asset delivery.
+Yes. Square Orb Gallery includes **Right-Click Protection** for gallery items and lightbox images, as well as an automatic, non-destructive **PNG Watermarking Engine** that stamps generated intermediate image sizes while keeping your original master files pristine.
 </FAQ>
 
 <FAQ title="Does the gallery support image metadata?">
-Yes. Square Orb Gallery can display **EXIF metadata** such as camera model, aperture, ISO, focal length, and shutter speed in the lightbox. You can toggle this globally or per block.
+Yes. Square Orb Gallery automatically extracts and displays **EXIF metadata** such as camera model, aperture, ISO, focal length, and shutter speed in the lightbox. You can toggle this globally or per block.
 </FAQ>
 
 <FAQ title="Is the plugin responsive?">
-Yes. Square Orb Gallery is built responsively. Layouts like Grid, Masonry, Justified, Carousel, and Map adapt to different screen sizes, and you can configure separate **Mobile Columns** and **Desktop Columns**.
+Yes. All five layouts—Grid, Masonry, Justified, Carousel, and Interactive Map—adapt responsively to mobile viewports. For grid layouts, you can define separate **Mobile Columns** (1–4) and **Desktop Columns** (auto-fill or 3–6).
 </FAQ>
 
 <FAQ title="Can I add videos to my gallery?">
-Yes. Each image entry can include a video URL (YouTube, Vimeo, or MP4) for playback inside the lightbox.
+Yes. In the block editor sidebar, each image item contains a "Video URL" input where you can paste YouTube, Vimeo, or direct MP4 links. In the lightbox, videos take priority and play with optional autoplay.
 </FAQ>
 
-<FAQ title="How do I update my gallery after adding new photos to a cloud album?">
-Open the gallery block or Import Media tab, relaunch the cloud picker, and select the new images. Square Orb Gallery stores the selected media IDs, so re-running the picker and saving the block refreshes the gallery.
+<FAQ title="How do I update my gallery after adding new photos to Google Photos?">
+Navigate to **Square Orb > Import Media**, relaunch the Google Canvas Picker, and select your new photos. Sideload them to WordPress Core, then add them to your gallery block in the editor.
 </FAQ>
 
 <FAQ title="Do changes in Global Defaults affect existing galleries?">
@@ -57,6 +65,6 @@ Yes—unless a gallery block has local overrides enabled. Blocks without overrid
 
 ## **Notes**
 
-- Global defaults provide wide control, while block settings allow fine-tuned local overrides.
-- Square Orb Gallery focuses on graceful image display with optional Lightbox overlays and asset protection.
-- The plugin provides both Gutenberg block support and a shortcode fallback.
+- Global presentation defaults provide wide control, while block settings allow fine-tuned local overrides.
+- Square Orb Gallery focuses on fast, accessible image display with responsive lightbox overlays and asset protection.
+- The plugin provides both Gutenberg block support (`Square Orb Canvas`) and a shortcode fallback (`[square_orb ids="..."]`).

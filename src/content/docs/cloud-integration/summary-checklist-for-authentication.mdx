@@ -9,8 +9,14 @@ sidebar:
     variant: default
 ---
 
-- **Google OAuth:** Ensure you have added the correct **Authorized Redirect URI** from the plugin to the Google Cloud Console.
+- **Authorized Redirect URI:** Verify that you copied the exact redirect URI from the **Square Orb > Authentication** tab into your Google Cloud and Adobe Developer consoles.
 
-- **API Keys:** Keep your secrets private. Never share your Client Secret or Vision API Key publicly.
+- **Google Test Users (Critical):** If your Google Cloud project's OAuth Consent Screen is in "Testing" mode, ensure your Google email address is added under **Test users**.
 
-- **Verification:** After entering credentials in the plugin, always click "Save" and attempt the "Connect" handshake from the Aura Gallery settings tab to confirm everything is configured correctly.
+- **API Enablement:** Confirm that the **Photos Picker API** (and optionally **Cloud Vision API**) is enabled in your Google Cloud Project, and that the **Lightroom API** is added to your Adobe project.
+
+- **Save Before Connecting:** Always click **Save Google Credentials** or **Save Adobe Credentials** in WordPress before clicking the respective "Connect" button.
+
+- **Security Best Practices:** Keep your Client Secret and Vision API Key strictly private. Never commit them to version control or share them publicly.
+
+- **Verification:** Once connected, the engine box displays a green *"✓ Connection Persistent & Active"* badge. If an error notice appears, verify your redirect URI and test user settings, then try connecting again.

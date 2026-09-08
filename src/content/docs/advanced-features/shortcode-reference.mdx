@@ -9,14 +9,81 @@ sidebar:
     variant: default
 ---
 
-If you need to place a gallery outside of the block editor (e.g., in a page builder or template file), Square Orb Gallery supports a shortcode fallback.
+While the block editor (**Square Orb Canvas**) is the primary and most flexible way to build galleries, Square Orb also provides a full shortcode implementation for use in classic themes, custom PHP page templates, widgets, and third-party page builders (such as Elementor, Beaver Builder, or Divi).
 
-**Format:** `[square_orb ids="123,456,789" layout="grid" columns="4"]`
+---
 
-**Parameters:**
+### Basic Shortcode Syntax
 
-- `ids`: (Required) A comma-separated list of WordPress attachment IDs.
+```text
+[square_orb ids="101,102,103,104"]
+```
 
-- `layout`: (Optional) Overrides the layout. Accepts `grid`, `masonry`, `justified`, `carousel`, or `map`.
+### Advanced Examples
 
-- `columns`: (Optional) Overrides the desktop column count.
+**Masonry layout with 3 desktop columns:**
+```text
+[square_orb ids="45,46,47,48,49" layout="masonry" columns="3"]
+```
+
+**Traveler's Map interactive layout:**
+```text
+[square_orb ids="120,121,122" layout="map"]
+```
+
+**Direct PHP integration inside custom WordPress theme templates:**
+```php
+<?php
+// Render a dynamic Square Orb gallery inside a template file
+echo do_shortcode( '[square_orb ids="' . implode( ',', $attachment_ids ) . '" layout="justified"]' );
+?>
+```
+
+---
+
+### Supported Attributes
+
+| Attribute | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `ids` | string (CSV) | *Required* | Comma-separated list of WordPress media attachment IDs (e.g., `"12,45,78"`). |
+| `layout` | string | Global Default | Gallery presentation layout. Supported values: `grid`, `masonry`, `justified`, `carousel`, or `map`. |
+| `columns` | string / int | Global Default | Desktop column count. Accepts an integer (e.g., `3`, `4`, `6`) or `'auto'` for responsive auto-fill. |
+
+---
+
+### Settings Inheritance & Global Defaults
+
+All presentation attributes not explicitly specified in the shortcode tag automatically inherit values from your site's global configuration:
+
+- **Inherited Parameters:** Spacing gap, corner radius, heading display, pagination / Load More button styling, category filtering, scroll entrance animations, right-click protection, and all Lightbox settings (transitions, slideshow interval, EXIF metadata, social sharing).
+- **Global Settings Location:** Managed under **Square Orb > Presentation Defaults**.
+- **Master Global Enforcement:** If **Force Global Defaults** is enabled in **Square Orb > Presentation Defaults**, the shortcode's `layout` and `columns` attributes will be overridden by the global settings to ensure absolute visual consistency across your site.
+
+---
+
+### Developer Filter Hooks
+
+#### Force Asset Enqueuing
+Square Orb automatically detects `[square_orb]` shortcodes in singular post and page content during `wp_enqueue_scripts`. If you are executing the shortcode dynamically (e.g., inside an archive template, custom REST endpoint, or AJAX handler), use the `square_orb_enqueue_assets` filter hook to guarantee styles and scripts are enqueued:
+
+```php
+add_filter( 'square_orb_enqueue_assets', function( $has_gallery ) {
+    if ( is_post_type_archive( 'portfolio' ) ) {
+        return true;
+    }
+    return $has_gallery;
+});
+```
+
+#### Filtering Shortcode Attributes
+You can programmatically modify shortcode attributes across your site using the standard WordPress shortcode attribute filter:
+
+```php
+add_filter( 'shortcode_atts_square_orb', function( $out, $pairs, $atts ) {
+    // Force carousel layout for specific contexts
+    if ( is_front_page() ) {
+        $out['layout'] = 'carousel';
+    }
+    return $out;
+}, 10, 3 );
+```

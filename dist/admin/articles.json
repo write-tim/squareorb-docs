@@ -56,6 +56,27 @@
     "file": "gallery-management/mastering-the-canvas-block.mdx"
   },
   {
+    "title": "Traveler's Map Layout",
+    "route": "/gallery-management/travelers-map-layout/",
+    "desc": "Display geographical photo journeys using interactive GPS mapping powered by locally bundled Leaflet.js.",
+    "category": "2. Gallery Management",
+    "file": "gallery-management/travelers-map-layout.mdx"
+  },
+  {
+    "title": "Video Integration",
+    "route": "/gallery-management/video-integration/",
+    "desc": "Embed and stream YouTube, Vimeo, and self-hosted MP4 videos inside your Square Orb galleries and lightbox.",
+    "category": "2. Gallery Management",
+    "file": "gallery-management/video-integration.mdx"
+  },
+  {
+    "title": "Watermarking Guide",
+    "route": "/gallery-management/watermarking-guide/",
+    "desc": "Protect your intellectual property with Square Orb's non-destructive PNG watermarking engine.",
+    "category": "2. Gallery Management",
+    "file": "gallery-management/watermarking-guide.mdx"
+  },
+  {
     "title": "Cloud Import Workflow",
     "route": "/cloud-integration/cloud-import-workflow/",
     "desc": "Cloud import workflow.",
@@ -117,6 +138,13 @@
     "desc": "Configure cloud integrations.",
     "category": "3. Cloud Integration",
     "file": "cloud-integration/summary-checklist-for-authentication.mdx"
+  },
+  {
+    "title": "Developer Reference",
+    "route": "/advanced-features/developer-reference/",
+    "desc": "Complete technical reference covering hooks, filters, PHP helper functions, REST API endpoints, post meta, and database architecture.",
+    "category": "4. Advanced Features",
+    "file": "advanced-features/developer-reference.mdx"
   },
   {
     "title": "Performance & Caching",

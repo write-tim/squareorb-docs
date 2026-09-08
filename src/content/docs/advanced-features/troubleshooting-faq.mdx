@@ -9,8 +9,19 @@ sidebar:
     variant: default
 ---
 
-| **Issue** | **Potential Solution** |
-| --- | --- |
-| **Gallery does not appear** | Ensure the block has selected image IDs. Check if the "Master Override Switch" is interfering with local block setups. If using a shortcode, verify the IDs are correct. |
-| **Lightbox not working** | Verify that Lightbox settings are enabled in Global Defaults, and ensure the gallery container contains at least one valid image. |
-| **Cloud import fails** | Re-authenticate your credentials on the Authentication tab. Ensure your API keys have the necessary permissions. |
+Encountering unexpected behavior? Consult the troubleshooting guide below for common issues, root causes, and verified solutions.
+
+---
+
+### Common Issues & Solutions
+
+| Issue | Root Cause | Solution |
+| :--- | :--- | :--- |
+| **Google OAuth 403 `access_denied` ("App is blocked" or "Access blocked: This app hasn't been verified")** | Google Cloud projects in **Testing** mode restrict OAuth authentication exclusively to accounts listed in the project's Test Users roster. | 1. Go to [Google Cloud Console](https://console.cloud.google.com/).<br/>2. Select your project and open **APIs & Services > OAuth consent screen**.<br/>3. Scroll down to **Test users** and click **+ ADD USERS**.<br/>4. Add the exact Google account email address you are attempting to authenticate with and save. |
+| **Missing or unresponsive "Connect Account" button** | Credentials have been entered into the text fields but not yet committed to the database. | You must click **Save Credentials** at the bottom of the **Authentication** tab *before* clicking the Connect button. The OAuth flow requires stored database credentials to generate valid authorization requests. |
+| **The "Analytics" tab does not appear in WordPress Admin** | Square Orb adheres to strict privacy-by-default standards; engagement tracking is deactivated upon initial installation. | 1. Navigate to **Square Orb > Global**.<br/>2. Scroll down to the **Privacy & Telemetry** section.<br/>3. Toggle **Enable Local Telemetry** to **ON** and click **Save Changes**.<br/>4. The **Analytics** tab will immediately appear in the admin navigation. |
+| **Traveler's Map shows an empty map or missing markers** | The images assigned to the gallery do not contain embedded EXIF GPS latitude/longitude metadata. | Check whether your export settings (e.g. in Adobe Lightroom, Photoshop, or smartphone settings) stripped GPS metadata. Square Orb extracts GPS tags natively; if no location data is found in an image, no marker pin can be plotted on the Leaflet map. |
+| **Changes to image titles, captions, or categories are not appearing** | Square Orb uses transient database caching with a 24-hour time-to-live to ensure sub-second page performance. | 1. In your WordPress admin, go to **Square Orb > Global**.<br/>2. Under **Performance Data Vault (Transient Cache)**, click **Purge High-Performance Cache**.<br/>3. If using site caching plugins (e.g., WP Rocket, LiteSpeed Cache) or a CDN (e.g., Cloudflare), clear those caches as well. |
+| **Shortcode does not load styles or lightbox animations** | The shortcode is being rendered dynamically in an archive template, widget, or custom PHP function where WordPress conditional script detection fails. | Add a custom filter hook to your theme's `functions.php`: <br/>`add_filter( 'square_orb_enqueue_assets', '__return_true' );`<br/>This forces Square Orb frontend styles and scripts to load across all pages. |
+| **Watermark is not applied to media** | Watermarking is only applied during intermediate image thumbnail generation and requires a valid PNG watermark source. | 1. Go to **Square Orb > Global** and ensure a valid PNG URL is entered in **Watermark Image URL**.<br/>2. Ensure **Auto-Apply on Upload** is enabled.<br/>3. For existing images already in your Media Library, select them in **Media > Library** (List view) and run the bulk action **Apply Watermark**. |
+| **Video fails to autoplay in Lightbox** | Browser autoplay policies restrict media with unmuted audio, or autoplay is disabled globally. | 1. Check **Square Orb > Presentation Defaults > Video Settings** to confirm **Autoplay Lightbox Videos** is enabled.<br/>2. Note that modern browsers (Chrome, Safari, Firefox) automatically block unmuted video autoplay unless the user has actively interacted with the page. |

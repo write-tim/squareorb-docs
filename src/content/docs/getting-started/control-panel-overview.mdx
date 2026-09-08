@@ -11,246 +11,167 @@ sidebar:
 
 import { Steps } from '@astrojs/starlight/components';
 
-## Interface Structure
+The Square Orb control panel is your centralized hub for configuring site-wide styling defaults, managing performance and protection settings, connecting cloud accounts, and viewing audience engagement metrics.
 
-The Square Orb Gallery control panel is divided into four main tabs to manage your ecosystem:
+To access the control panel, navigate to **Square Orb** in your WordPress admin menu.
 
-- **Global Defaults:** Controls centralized, site-wide gallery behavior, layout, Lightbox settings, and asset protection.
-- **Import Media:** The hub for sideloading images from your connected cloud accounts, such as Google Photos or Lightroom CC.
-- **Authentication:** Manage API credentials and connect/disconnect Google Photos, Adobe Lightroom CC, and the Google Vision API.
-- **Analytics:** View engagement telemetry, including top-performing assets by views and dwell time.
+---
 
-***
+## Navigation Tabs
 
-## Global Defaults Tab
+The control panel is organized into dedicated tabs:
 
-### 1. Performance Data Vault (Transient Cache)
+1. [**Global**](#1-global-tab): Performance caching, digital asset protection (right-click and watermarking), and the engagement telemetry switch.
+2. [**Presentation Defaults**](#2-presentation-defaults-tab): Master Override switch, live mockups, heading options, layout presets, pagination buttons, and lightbox viewer settings.
+3. [**Import Media**](#3-import-media-tab): Cloud import staging grid and sideloading queue for Google Photos.
+4. [**Authentication**](#4-authentication-tab): OAuth credentials and connection handshakes for Google Photos, Google Vision AI, and Adobe Creative Cloud.
+5. [**Analytics**](#5-analytics-tab): Engagement dashboard displaying views, dwell time, Chart.js graphs, CSV export, and data management (*visible when telemetry is enabled*).
+6. [**☕ Support**](#6-support-tab): Quick links to documentation and project support via Ko-fi.
 
-**Purpose:** Manages Square Orb Gallery's caching system that stores API calls, EXIF data extraction, and DOM generation to enable instant page loads without database queries.
+---
 
-**Features:**
+## 1. Global Tab
 
-- "Purge High-Performance Cache" button - allows manual clearing of cached data when image metadata is updated, or a fresh pull is needed
+The **Global** tab (`tab=sitewide`) controls baseline site operations and asset security.
 
-***
+### Performance Data Vault (Transient Cache)
 
-### 2. Master Override Switch
+Square Orb caches image metadata queries, EXIF extraction, and layout calculations as WordPress transients (`_transient_sorb_cache_*`) for 24 hours to eliminate repetitive database queries and ensure instantaneous page loads.
 
-**Purpose:** Global control enforcement across all galleries site-wide.
+- **Purge High-Performance Cache:** Click this button if you updated image titles, alt text, or EXIF metadata in the Media Library and need galleries to reflect those changes immediately.
 
-**Toggle Option:** When enabled, forces every gallery container site-wide to inherit centralized styles, bypassing individual Gutenberg block-level overrides
+### Digital Asset Protection
 
-***
+Security tools designed to deter unauthorized image downloading:
 
-### 3. Gallery Presentation
+- **Right-Click Protection:** Disables the browser's context menu on gallery items and within the lightbox overlay.
+- **Watermark Overlay (PNG):** Select a transparent PNG watermark from your media library. Square Orb non-destructively stamps generated intermediate image sizes (`sorb-pro-highres`, `large`, `medium_large`), leaving your original uploaded files untouched.
+- **Auto-Watermark Native Uploads:** When enabled, automatically applies the selected watermark to any new images uploaded to WordPress.
+- **Watermark Position:** Choose between **Bottom Right** (default) or **Center**.
 
-**Purpose:** Controls the visual layout and appearance of gallery grids.
+### Analytics & Telemetry
 
-**Settings:**
+- **Enable Engagement Telemetry:** Off by default. When enabled, records anonymous view counts and dwell time per image using silent browser beacons stored locally in your database. No external servers are contacted and no personally identifiable information (PII) is gathered.
+- Enabling this setting displays the [Analytics tab](#5-analytics-tab).
 
-- **Gallery Style** (dropdown) - 5 layout options:
-    - Perfect Square Grid (default)
-    - Dynamic Masonry
-    - Cinematic Justified Row
-    - Responsive Swipe Carousel
-    - Interactive Traveler's Map
-- **Desktop Columns** (dropdown) - Responsive auto-fill or fixed 3-6 columns
-- **Mobile Columns** (number input) - 1-4 columns for mobile devices (default: 2)
-- **Grid Gap** (px) - Spacing between images (default: 15px)
-- **Corner Radius** (px) - Rounded corners for grid items (default: 0px)
-- **Enable Scroll Animations** (toggle) - Fade-in effects as images enter viewport (default: yes)
-- **Enable Category Filters** (toggle) - Shows taxonomy/category filter UI (default: no)
-- **Enable Smart Search (Experimental AI)** (toggle) - Displays live-search bar for instant grid filtering (default: yes)
-    - Note: "Displays an animated live-search bar to instantly filter grid results."
+---
 
-***
+## 2. Presentation Defaults Tab
 
-### 4. Display & Loading Options
+The **Presentation Defaults** tab (`tab=global`) sets the default look and feel for all galleries across your website.
 
-**Purpose:** Configures the "Load More" pagination button and its styling.
+### Master Override Switch
 
-**Live Preview Feature:**
+- **Enforce Global Defaults:** When toggled on, all gallery blocks site-wide strictly follow these global presentation defaults, ignoring any local style overrides configured on individual blocks.
+- *Note:* Content-level values (such as image selection and custom heading text) always remain per-block and are never locked out.
 
-- Interactive button preview showing real-time style updates
+### Gallery Presentation
 
-**Settings:**
+Includes an interactive **Gallery Presentation Mockup** that updates in real time as you adjust settings.
 
-- **Initial Items to Show** (number input) - How many images load on page start (default: 20, min: 4)
-    - Note: "Determines how many images load on page start. A lower number improves initial page load speed."
-- **Button Text** (text input) - Custom button label (default: "Load More")
-- **Button Styling** (dropdown) - 4 shape options:
-    - Pill (Fully Rounded)
-    - Rounded Corners
-    - Square
-    - Inherit WordPress Theme Default
-- **Button Background Color** (color picker) - HEX color input + visual swatch (default: #333333)
-- **Button Text Color** (color picker) - HEX color input + visual swatch (default: #ffffff)
+#### Heading Settings (v1.1)
+- **Show Gallery Heading:** Toggle whether galleries render a heading above the media grid by default.
+- **Gallery Heading Tag:** Select the HTML heading tag (`h2`, `h3`, `h4`, `h5`, `h6`, or `p`).
+- **Gallery Heading Styling Source:**
+  - `Inherit Theme Styles`: Relies on your active theme's typography and color rules.
+  - `Use Square Orb Preset`: Applies modern, responsive heading typography.
+- **Show Divider Under Heading:** Adds a subtle horizontal divider line (`<hr class="sorb-gallery-divider" />`) below the heading.
 
-***
+#### Layout & Grid
+- **Gallery Style:** Choose your default layout:
+  - *Perfect Square Grid* (1:1 uniform cropping)
+  - *Dynamic Masonry* (editorial, multi-column waterfall)
+  - *Cinematic Justified Row* (16:9 proportional rows)
+  - *Responsive Swipe Carousel* (horizontal slider with scroll-snap)
+  - *Interactive Traveler's Map* (geographic pins powered by EXIF GPS data)
+- **Desktop Columns:** Responsive Auto-fill or fixed 3, 4, 5, or 6 columns.
+- **Mobile Columns:** 1, 2, 3, or 4 columns for small viewports (default: 2).
+- **Grid Gap (px):** Spacing between gallery items (default: 15px).
+- **Corner Radius (px):** Border radius for gallery thumbnails (default: 0px).
 
-### 5. Digital Asset Protection
+#### Discovery & Visibility
+- **Enable Category Filters:** Renders filter chips for categories assigned to attachment images.
+- **Enable Smart Search (Experimental AI):** Displays an animated real-time search bar that filters gallery items by tags, title, and caption.
 
-**Purpose:** Security and watermarking controls for protecting gallery images.
+#### Loading & Pagination
+- **Initial Items to Show:** Sets the initial count of images rendered on page load (default: 20, min: 4).
+- **Enable Scroll Animations:** Smoothly fades and slides items into view as they enter the viewport.
 
-**Settings:**
+#### Load More Button
+- **Button Text:** Label for the AJAX pagination trigger (default: "Load More").
+- **Button Styling:** Choose between *Pill (Fully Rounded)*, *Rounded Corners*, *Square*, or *Inherit WordPress Theme Default*.
+- **Background & Text Colors:** Custom color pickers with hex inputs and palette swatches.
 
-- **Right-Click Protection** (toggle) - Disables right-click context menu on images (default: yes)
-- **Watermark Overlay (PNG)** - Non-destructive watermarking system:
-    - Image preview display (max 200px × 100px)
-    - "Select PNG Watermark" button - media uploader integration
-    - "Remove Watermark File" button - conditionally displayed
-    - Note: "Select a transparent PNG. We non-destructively stamp generated sizes, keeping your original master files pristine."
-- **Auto-Watermark Native Uploads** (toggle) - Automatically applies watermark to newly uploaded media (default: no)
-- **Watermark Position** (dropdown) - 2 options:
-    - Bottom Right (default)
-    - Center
+### Lightbox Presentation
 
-***
+Includes a **Live Lightbox Mockup** showing your overlay color, controls, and frame borders in real time.
 
-### 6. Lightbox Presentation
+- **Autoplay Lightbox Videos:** Automatically starts video playback (YouTube, Vimeo, or MP4) when opened in the lightbox.
+- **Overlay Matte Color:** Supports hex or rgba values (e.g., `rgba(0, 0, 0, 0.95)`) for full opacity or subtle transparency.
+- **Transition Style:** Choose from 11 hardware-accelerated animations (*None, Fade, Blur, Wipe, Curtain, Swipe, Slide, Zoom, Bounce, Flip, Spin*).
+- **Media Border Color, Width, & Radius:** Frame borders and rounded corners around lightbox media.
+- **Slideshow Controls & Speed:** Enable auto-advancing slideshows with adjustable durations (1–20 seconds).
+- **Control Buttons Styling:** Customize the background, icon color, and border radius of the navigation arrows, close button, and slideshow controls.
+- **Information Bar Display:** Toggle the thumbnail **Filmstrip**, **Titles**, **Captions**, **Advanced EXIF Data** (camera, focal length, aperture, shutter speed, ISO), and **Social Sharing** links.
 
-**Purpose:** Comprehensive lightbox/modal viewer customization.
+---
 
-**Live Lightbox Mockup:**
+## 3. Import Media Tab
 
-- Interactive preview showing:
-    - Dark overlay background
-    - Media display area with border/radius styling
-    - Navigation controls (prev/next arrows)
-    - Close button
-    - Play button (for videos)
-    - Filmstrip thumbnail carousel at the bottom
-    - Title and filmstrip preview grid
+The **Import Media** tab (`tab=import`) connects directly with cloud accounts authenticated on your site.
 
-#### Video
+### Google Photos Import Workflow
 
-- **Autoplay Lightbox Videos** (toggle) - Auto-plays video content when opened (default: yes)
+1. Click **Select Cloud Photos via Google Canvas**.
+2. A Google Photos Picker popup opens, allowing you to browse your albums and select images.
+3. Upon confirming your selection, thumbnails load into the admin **Photo Grid**.
+4. Select or deselect any photos you wish to keep.
+5. Click **Sideload to WordPress Core (X)**.
+6. Square Orb downloads the original assets, creates WordPress attachment records, extracts dominant colors and GPS data, runs optional AI auto-tagging, applies watermarks if configured, and displays real-time progress.
+7. If any items encounter network interruptions, use the **Retry failed only** button.
 
-#### Overlay & Media Style
+*Note on Adobe Lightroom CC:* Adobe account authentication is currently supported on the Authentication tab. The Lightroom media browsing and import UI is in active development for the upcoming v1.2 release.
 
-- **Overlay Matte Color** (color picker) - Dark overlay background (default: rgba(0, 0, 0, 0.95))
-    - Supports HEX or RGBA values
-    - Color swatch picker
-    - Note: "Supports HEX or RGBA (for transparency). Use the swatch to select a solid color."
-- **Transition Style** (dropdown) - animation options:
-    - Instant Swap (None) (default)
-    - Smooth Opacity Fade
-    - Gaussian Blur Dissolve
-    - Hardware Accelerated Clip Wipe
-    - Stage Curtain
-    - Vertical Swipe
-    - Directional Slide
-    - Pop & Zoom
-    - Elastic Bounce
-    - 3D Axis Flip
-    - Quarter Spin
-- **Media Border Color** (color picker) - Frame border around images (default: #ffffff)
-    - Color input + swatch
-- **Media Border Width** (px) - Border thickness (default: 0px, max: 20px)
-- **Media Corner Radius** (px) - Rounded corners on media (default: 0px, max: 50px)
+---
 
-#### Navigation & Controls
+## 4. Authentication Tab
 
-- **Enable Slideshow Mode** (toggle) - Auto-advance through images (default: yes)
-- **Slideshow Speed** (seconds) - Interval between slides (default: 5 seconds, 1-20 range)
-- **Control Buttons Background** (color picker) - Button overlay color (default: rgba(0,0,0,0.5))
-    - Controls: prev/next arrows, close, play buttons
-- **Control Buttons Color** (color picker) - Icon/text color on buttons (default: #ffffff)
-- **Control Buttons Radius** (px) - Button border radius (default: 4px, max: 50px)
-
-#### Sub-section: Information Bar Display
-
-- **Enable Gallery Filmstrip** (toggle) - Shows thumbnail carousel at bottom (default: yes)
-- **Show Titles** (toggle) - Display image titles (default: yes)
-- **Show Captions** (toggle) - Display image captions/descriptions (default: yes)
-- **Show Advanced EXIF Data** (toggle) - Display camera metadata (default: yes)
-- **Enable Social Sharing** (toggle) - Share buttons with universal app link formatting (default: yes)
-    - Note: "Automatically formats URLs for mobile Universal App Links."
-
-***
-
-## Import Media Tab
-
-**Purpose:** Cloud media import interface for Google Photos and Adobe Lightroom.
-
-**Features:**
-
-- Displays cloud service import tools based on active authenticated connections
-- "Select Cloud Photos via Google Canvas" button (requires authentication)
-- "Sideload to WordPress Core" button (appears after selection, shows count)
-- Status indicator showing import state
-- Photo grid display for selected assets
-- Error log display
-- Authentication requirement notice with link to the Authentication tab
-
-***
-
-## Authentication Tab
-
-**Purpose:** Manage API credentials and OAuth connections for cloud services.
+The **Authentication** tab (`tab=auth`) stores your OAuth credentials and handles token handshakes.
 
 ### Google Photos Engine
-
-**Features:**
-
-- Connection status display (active/not connected)
-- Authorized redirect URI display (read-only code block)
-- OAuth connection button
-- Settings form with:
-    - Google OAuth Client ID (text input)
-    - Google OAuth Client Secret (password input)
-    - Google Vision API Key (password input, experimental AI auto-tagging)
-    - Note on experimental AI Vision API
-    - "Save Google Credentials" button
-- Disconnect button (appears when connected)
+- **Authorized Redirect URI:** Copy the displayed URI into your Google Cloud Console OAuth client.
+- **Google OAuth Client ID & Secret:** Enter your credentials and click **Save Google Credentials**.
+- **Connect to Google Photos:** Click this button after saving credentials to authorize access.
+- **Google Vision API Key:** Optionally provide a Google Cloud Vision API key to enable AI-powered label detection and auto-tagging during cloud imports.
 
 ### Adobe Lightroom CC Engine
+- **Authorized Redirect URI:** Copy the displayed URI into your Adobe Developer Console.
+- **Adobe Client ID & Secret:** Enter your credentials and click **Save Adobe Credentials**.
+- **Connect to Lightroom:** Perform the OAuth handshake to authenticate your Adobe account.
 
-**Features:**
+---
 
-- Parallel layout to Google section
-- Connection status display
-- Authorized redirect URI
-- OAuth connection button
-- Settings form with:
-    - Adobe Client ID / API Key (text input)
-    - Adobe Client Secret (password input)
-    - "Save Adobe Credentials" button
-- Disconnect button (appears when connected)
+## 5. Analytics Tab
 
-***
+The **Analytics** tab (`tab=analytics`) becomes available when **Enable Engagement Telemetry** is toggled on in the [Global tab](#1-global-tab).
 
-## Analytics Tab
+### Key Features
 
-**Purpose:** Engagement telemetry and visitor interaction tracking.
+- **Interactive Telemetry Chart:** A Chart.js bar chart comparing **Total Views** and **Total Dwell Time** (in seconds) across your most engaging images.
+- **Engagement Data Table:** Displays your top 10 performing media assets with:
+  - Thumbnail preview
+  - Asset title
+  - Total views
+  - Total dwell time (s)
+  - Average dwell time per view (s)
+- **Export as CSV:** Download a complete, timestamped CSV report (`square-orb-analytics-YYYY-MM-DD.csv`) containing engagement statistics for all tracked assets.
+- **Delete All Analytics Data:** Permanently resets all view counts and dwell time records from your database.
 
-**Features:**
+---
 
-- **Engagement Telemetry** section
-- Data description: "Discover which assets are capturing the most attention. Data is securely tracked via silent browser beacons."
+## 6. Support Tab
 
-**When No Data Collected:**
+The **☕ Support** tab (`tab=support`) provides:
 
-- Notice: "No telemetry data collected yet. Once visitors start interacting with your Lightbox, data will appear here."
-
-**When Data Available:**
-
-- Chart.js visualization - Shows engagement metrics
-- Data table with columns:
-    - Thumbnail preview
-    - Asset Title
-    - Total Views
-    - Dwell Time (seconds)
-- 10 top-performing items displayed
-
-***
-
-## Key UX Features
-
-1. **Live Previews** - Button styling and lightbox mockup update in real-time
-2. **Color Pickers** - Both text input and visual swatch selection
-3. **Conditional Displays** - Elements show/hide based on connection status
-4. **Responsive Layout** - Auth section uses flexbox for side-by-side panels
-5. **Status Indicators** - Connection status, asset engine status
-6. **Helpful Notes** - Small text hints throughout for each setting
-7. **Organized Sections** - Related settings grouped under colored boxes with clear hierarchy
+- Direct links to the [official documentation](https://squareorb-docs.awesomediscoveryzone.com/).
+- A link to support ongoing plugin maintenance and feature development on [Ko-fi](https://ko-fi.com/timothyjohnson618).

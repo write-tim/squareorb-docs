@@ -9,6 +9,44 @@ sidebar:
     variant: default
 ---
 
-To guarantee fast load times, Square Orb Gallery caches layout output and EXIF metadata extraction.
+Square Orb is engineered from the ground up for high-speed portfolio delivery, minimal database overhead, and instant visual feedback for visitors on both high-bandwidth desktop screens and mobile connections.
 
-- **Performance Data Vault:** If you update image metadata or change underlying file details and the gallery does not reflect those changes immediately, click the **Purge High-Performance Cache** button in the Global Defaults tab to rebuild the output.
+---
+
+### Transient Output Caching
+
+To eliminate redundant database lookups and expensive markup generation on high-traffic websites, Square Orb utilizes WordPress Transients:
+
+- **24-Hour Cache Lifecycle:** Rendered gallery HTML payloads are cached in the WordPress database under the key prefix `_transient_sorb_cache_*` for 24 hours (`24 * HOUR_IN_SECONDS`).
+- **Deterministic Cache Keys:** Cache keys are derived from a cryptographic hash of the gallery configuration (attachment IDs, layout style, column count, and active presentation parameters). If any parameter changes, a new cache entry is automatically generated.
+- **Batched Metadata Loading:** Square Orb uses `sorb_get_attachment_batch_data()` to query attachment post records, category taxonomy terms, and image metadata in a single combined SQL query rather than loading each media item individually (`N+1` query prevention).
+
+---
+
+### High-Resolution Image Pipeline (`sorb-pro-highres`)
+
+Upon plugin activation, Square Orb registers a custom WordPress image size:
+- **Identifier:** `sorb-pro-highres`
+- **Dimensions:** 2048 × 2048 pixels (un-cropped, aspect ratio preserved)
+- **Purpose:** Delivers crisp, retina-ready fidelity inside the Lightbox modal without forcing mobile browsers to load massive, uncompressed original RAW/camera files (which may exceed 20MB–50MB).
+
+---
+
+### Dominant Color Placeholders (`_sorb_dom_color`)
+
+To prevent Cumulative Layout Shift (CLS) and provide a polished loading experience:
+- When media is imported or processed through Square Orb, the plugin calculates the average dominant RGB color of the image using GD/Imagick.
+- This value is stored in post meta as `_sorb_dom_color` (e.g., `#2a4365`).
+- Before the full image is downloaded over the network, each gallery tile displays this dominant color backdrop. As a result, the layout never jumps or flickers while images stream in.
+
+---
+
+### Purging the Cache (Performance Data Vault)
+
+If you modify image captions, replace attachment files, or reassign categories in the WordPress Media Library and the changes do not immediately appear on your live pages:
+
+1. In your WordPress admin, navigate to **Square Orb > Global**.
+2. Locate the **Performance Data Vault (Transient Cache)** panel.
+3. Click the **Purge High-Performance Cache** button.
+4. All transient records starting with `_transient_sorb_cache_` and `_transient_timeout_sorb_cache_` will be immediately deleted, and external object caches (like Redis or Memcached) will be flushed via `wp_cache_flush()`.
+5. The next page visit will rebuild fresh gallery markup automatically.

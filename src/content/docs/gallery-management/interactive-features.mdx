@@ -9,12 +9,48 @@ sidebar:
     variant: default
 ---
 
-Enhance user engagement with the following toggles:
+Square Orb Gallery provides visitor interaction tools to make exploring large photo libraries engaging, fast, and accessible.
 
-- **Scroll Animations:** Animate images into view as the user scrolls down the page.
+---
 
-- **Category Filters:** Display filter buttons above the gallery if your images utilize categories.
+## 1. Smart Search (Experimental AI)
 
-- **Smart Search (Experimental AI):** Adds a live search bar allowing visitors to instantly filter gallery items.
+When enabled, **Smart Search** renders a responsive search input directly above your gallery grid.
 
-- **Display Loading:** Control the "Initial Items to Show" (how many load immediately) and customize the "Load More" button's text, shape, and colors.
+* **Live Client-Side Filtering:** As visitors type, gallery items filter instantly without reloading the page. Searches evaluate image titles, captions, and assigned category taxonomy names.
+* **Instant Feedback & Counters:** Displays a dynamic result counter (`Showing X items` or `Showing 1 item`) so visitors know how many matches exist.
+* **Filter Reset Button:** An inline **Reset filters** button appears as soon as a search or filter is applied, allowing visitors to return to the full collection with one click.
+* **Empty State Handling:** If no images match the search criteria, a clean notification message (*"No items matched your current filter/search."*) is displayed in place of an empty space.
+
+---
+
+## 2. Category Filters
+
+Square Orb automatically bridges WordPress categories with your media library attachments.
+
+* **Taxonomy Integration:** When your attachment images have categories assigned, enabling **Category Filters** automatically generates filter buttons above the gallery.
+* **Dynamic Active States:** An **All** chip is active by default. Clicking any category button filters the grid using smooth CSS opacity and transform transitions.
+* **Combined Discovery:** Category filters and Smart Search work together—visitors can click a category (e.g., "Portraits") and then search within that category.
+
+---
+
+## 3. Viewport Scroll Animations
+
+Square Orb includes hardware-accelerated scroll animations to provide a polished, app-like entrance for your photography.
+
+* **Intersection Observer:** Uses native browser `IntersectionObserver` APIs (`threshold: 0.1`) to monitor when images scroll into view.
+* **Performance Focused:** Non-visible elements stay lightweight until needed, reducing CPU and GPU work during rapid scrolling.
+* **Auto-Disable:** Scroll animations are automatically disabled on the Traveler's Map layout to keep pin rendering crisp and responsive.
+
+---
+
+## 4. Dynamic AJAX Loading & "Load More"
+
+For galleries containing dozens or hundreds of photos, Square Orb avoids long initial page load times by loading images progressively.
+
+* **Initial Media Per Page:** Choose how many media items load initially (min: 4, default: 20).
+* **REST API Endpoint:** When clicking **Load More**, the gallery requests the next batch from `/wp-json/square-orb/v1/get-images` and injects new cards into the DOM.
+* **Toggle to "Show Less":** Once all images in the gallery have been loaded, the button text seamlessly changes to **Show Less** (customizable), allowing visitors to collapse dynamically loaded items back to the initial set.
+* **Custom Button Styling:**
+  * **Shape:** *Pill (Fully Rounded)*, *Rounded Corners*, *Square*, or *Inherit WordPress Theme Default*.
+  * **Colors:** Independent control over button background color and label text color.

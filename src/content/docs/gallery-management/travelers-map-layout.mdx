@@ -1,0 +1,58 @@
+---
+title: "Traveler's Map Layout"
+description: Display geographical photo journeys using interactive GPS mapping powered by locally bundled Leaflet.js.
+sidebar:
+  label: "Traveler's Map"
+  order: 7
+---
+
+The **Traveler's Map** layout transforms your image collection into an interactive geographical map. Designed specifically for travel photographers, landscape artists, field researchers, and documentary creators, this layout plots each photograph onto an interactive world map based on its embedded camera GPS metadata.
+
+---
+
+### How It Works
+
+1. **Automatic EXIF GPS Extraction:** When you select photos for a Traveler's Map gallery, Square Orb inspects each image's EXIF data to extract the `GPSLatitude` and `GPSLongitude` coordinates.
+2. **Post Meta Caching:** Extracted coordinates are permanently cached in your WordPress database under the post meta key `_sorb_gps_data`. This ensures subsequent page visits require zero disk reads or EXIF re-parsing.
+3. **Scaled Image Fallback:** If WordPress generated a scaled intermediate image (e.g., `-scaled.jpg`) and stripped EXIF tags during upload, Square Orb automatically traces back to the original unmodified source file to extract the true GPS coordinates.
+4. **Interactive Leaflet Map:** The layout initializes an interactive map using a locally bundled version of **Leaflet.js v1.9.4** and OpenStreetMap tiles.
+5. **Interactive Markers & Lightbox:** Each plotted pin displays a thumbnail preview of the photo. Clicking the preview opens the full-resolution image in the Square Orb Lightbox with complete EXIF camera statistics, zoom, and transitions.
+
+---
+
+### Enabling Traveler's Map
+
+#### In the Block Editor
+1. Insert a **Square Orb Canvas** block into your page or post.
+2. Select your images in the block inspector.
+3. Open the **Layout Styles** panel in the block settings sidebar.
+4. Set the **Layout Mode** to **Traveler's Map**.
+5. Save or publish the page.
+
+#### Using the Shortcode
+You can also render a Traveler's Map gallery via shortcode:
+```text
+[square_orb ids="110,111,112,113" layout="map"]
+```
+
+---
+
+### Preserving GPS Metadata in Your Camera & Software
+
+For images to appear on the map, they must contain valid GPS coordinates. If an image is missing GPS tags, it will be skipped from marker placement.
+
+- **Smartphones (iPhone & Android):** Ensure Location Services are enabled for your Camera app under your device settings.
+- **Dedicated Cameras:** Use cameras equipped with internal GPS, or sync GPS track logs (GPX) using mobile companion apps or camera accessories before exporting.
+- **Adobe Lightroom Export Settings:** When exporting photos from Adobe Lightroom Classic or Lightroom CC, verify that your export preset is configured to keep location data intact:
+  - In the **Metadata** panel of the Export dialog, set **Include** to **All Metadata** (or ensure **Remove Location Info** is unchecked).
+- **Social Media Downloads:** Images downloaded from platforms like Facebook, Instagram, or WhatsApp have all EXIF metadata stripped for privacy and cannot be mapped automatically without manually re-tagging EXIF coordinates.
+
+---
+
+### Privacy & Self-Hosting Benefits
+
+Unlike other WordPress map plugins that rely on third-party Google Maps API keys (requiring credit card registration and incurring monthly billing risks), Square Orb's Traveler's Map:
+- Uses **locally bundled scripts and stylesheets** (`leaflet.min.js` and `leaflet.min.css`).
+- Connects directly to open-access OpenStreetMap tiles.
+- Requires **no external API keys** or subscriptions.
+

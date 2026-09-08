@@ -11,26 +11,23 @@ sidebar:
 
 import { Steps } from '@astrojs/starlight/components';
 
-To set up the connection:
+To set up your cloud connections:
 
 <Steps>
 
-1. Navigate to **Aura Gallery > Authentication**.
+1. Navigate to **Square Orb > Authentication** in your WordPress admin menu.
 
-2. **Google Photos:** Enter your Google OAuth Client ID and Secret, then click **Connect to Google Photos**.
+2. **Google Photos:** Enter your **Google OAuth Client ID** and **Google OAuth Client Secret**, click **Save Google Credentials**, and then click **Connect to Google Photos** to authorize your account.
 
-3. **Adobe Lightroom CC:** Enter your Adobe Client ID and Secret, then click **Connect to Lightroom CC**.
+3. **Google Vision API:** Optionally enter a Google Cloud Vision API key for experimental AI label detection and auto-tagging. Click **Save Google Credentials**.
 
-4. **Google Vision API:** Optionally enter an API key for experimental auto-tagging features.
+4. **Adobe Creative Cloud (Lightroom):** Enter your **Adobe Client ID** and **Adobe Client Secret**, click **Save Adobe Credentials**, and then click **Connect to Lightroom** to establish the OAuth connection. *(Note: Photo browsing and import UI via Lightroom is in active development for v1.2).*
 
 </Steps>
 
 ### Key Concepts to Remember
 
-- **Redirect URI:** Both Google and Adobe consoles will ask for a "Redirect URI." You must copy this exact URL from your WordPress **Aura Gallery > Authentication** tab and paste it into the developer console. This tells the services where to send the "key" after you successfully log in.
-
-- **Security:** Never share your **Client Secret** or **API Key** with anyone. These are the "keys to the castle" for your cloud data.
-
-- **Billing:** Some cloud services are free up to a certain usage limit, but they may ask for billing information to prevent abuse. You can often start with free credits, but ensure you understand the terms before enabling billing.
-
-Once these accounts are set up and your keys are entered into the Aura Gallery plugin, you can complete the "handshake" process on your WordPress dashboard to finalize the connection.
+- **Authorized Redirect URI:** Both Google Cloud Console and Adobe Developer Console require an "Authorized Redirect URI." You must copy the exact URL displayed on your WordPress **Square Orb > Authentication** tab (e.g., `https://yourdomain.com/wp-admin/admin.php?page=square-orb`) and paste it into the respective developer console.
+- **Save Before Connecting:** Always click the **Save Credentials** button before clicking the "Connect" button. The connection handshake requires the credentials to be saved in your WordPress database first.
+- **Security:** Never share your Client Secret or Vision API Key publicly.
+- **Billing & Quotas:** Google Photos Picker API and Adobe Developer APIs offer free tiers for personal website usage, but require projects to comply with respective developer terms of service.

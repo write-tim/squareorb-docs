@@ -9,30 +9,53 @@ sidebar:
     variant: default
 ---
 
-The Lightbox overlay can be heavily customized under the Global Defaults tab:
+The Lightbox overlay provides an immersive, full-screen viewing experience for photos and videos. It can be customized globally under **Square Orb > Presentation Defaults > Lightbox Settings**, or overridden at the individual block level.
 
-- **Transitions:** Choose the animation style when opening/navigating images (Instant Swap, Smooth Opacity Fade, Hardware Accelerated Wipe, Directional Slide, Pop & Zoom, or 3D Axis Flip).
+- **Transitions:** Choose from 11 animation styles when opening or navigating between images (Instant Swap, Smooth Fade, Gaussian Blur, Clip Wipe, Stage Curtain, Vertical Swipe, Directional Slide, Pop & Zoom, Elastic Bounce, 3D Axis Flip, or Quarter Spin).
+- **Overlay & Media Styling:** Customize the overlay backdrop color and opacity, media border color, width, and corner radius.
+- **Controls & Slideshow:** Enable automated slideshow playback, configure slide intervals (in seconds), toggle pause-on-hover, and style UI navigation buttons (background, color, border radius).
+- **Filmstrip Navigation:** Display a bottom thumbnail strip allowing viewers to quickly scrub through and jump directly to any asset in the gallery.
+- **Metadata & EXIF Display:** Display image titles, descriptions, captions, and technical camera EXIF metadata (camera model, aperture, shutter speed, ISO, focal length).
+- **Social Sharing:** Provide direct sharing triggers for social networks and direct asset URL copying.
+- **Video Playback:** Seamlessly renders YouTube, Vimeo, and self-hosted HTML5 MP4/WebM video players. Enable **Autoplay Lightbox Videos** to start playback automatically upon opening.
 
-- **Overlay & Media Style:** Customize the Overlay Matte Color, Media Border Color, Width, and Radius.
-
-- **Controls & Slideshow:** Enable automatic slideshows, set rotation speed, and style the control buttons (Background, Color, Radius).
-
-- **Information Bar:** Toggle the display of the thumbnail Filmstrip, Image Titles, Captions, Advanced EXIF Data (aperture, shutter speed, ISO, focal length), and Social Sharing links.
-
-- **Video Playback:** Enable **Autoplay Lightbox Videos** to automatically play supported video items when they are opened in the Lightbox.
+---
 
 ### Available Transitions
 
+Square Orb includes 11 CSS-accelerated lightbox transition effects:
+
 | Value | Label | Effect |
-| --- | --- | --- |
-| `none` | Instant Swap | No animation — image swaps immediately |
-| `fade` | Smooth Opacity Fade | Current image fades to 0 opacity, new image fades in |
-| `blur` | Gaussian Blur Dissolve | Blurs and scales out, then sharpens and scales back in — rack focus feel |
-| `wipe` | Hardware Accelerated Clip Wipe | `clip-path` reveals the new image left→right |
-| `curtain` | Stage Curtain | `clip-path` reveals from center outward in both directions simultaneously |
-| `swipe` | Vertical Swipe | Direction-aware `clip-path` reveal from top (next) or bottom (prev) |
-| `slide` | Directional Slide | New image slides in from right (next) or left (prev) via `translateX` |
-| `zoom` | Pop & Zoom | New image scales up from 80% with a slight overshoot easing |
-| `bounce` | Elastic Bounce | Scales up from 60% with a strong spring overshoot (`cubic-bezier(0.34, 1.56, 0.64, 1)`) |
-| `flip` | 3D Axis Flip | Rotates in on the Y axis (`rotateY`) — requires `perspective: 1200px` on the stage |
-| `spin` | Quarter Spin | dRotates 90° in/out with a scale, direction-aware (clockwise or counter-clockwise) |
+| :--- | :--- | :--- |
+| `none` | Instant Swap | Immediate switch with zero animation delay |
+| `fade` | Smooth Opacity Fade | Current image dissolves to 0 opacity while new image fades in |
+| `blur` | Gaussian Blur Dissolve | Rack-focus simulation: blurs and scales slightly out, then sharpens into view |
+| `wipe` | Hardware Accelerated Clip Wipe | GPU-accelerated `clip-path` reveal sweeping left to right |
+| `curtain` | Stage Curtain | Symmetrical `clip-path` reveal sweeping outward from the center in both directions |
+| `swipe` | Vertical Swipe | Direction-aware vertical `clip-path` reveal (top-down for next, bottom-up for previous) |
+| `slide` | Directional Slide | Smooth horizontal slide on the X axis (`translateX`) based on navigation direction |
+| `zoom` | Pop & Zoom | Scales in from 80% to 100% with subtle spring easing |
+| `bounce` | Elastic Bounce | Dramatic entrance scaling from 60% with strong spring overshoot (`cubic-bezier(0.34, 1.56, 0.64, 1)`) |
+| `flip` | 3D Axis Flip | 3D perspective rotation on the Y-axis (`rotateY`) inside a 1200px perspective stage |
+| `spin` | Quarter Spin | Direction-aware 90° rotational spin accompanied by a smooth scale transition |
+
+---
+
+### Navigation & Accessibility
+
+Square Orb's lightbox is built with accessibility and mobile responsiveness in mind:
+
+- **Keyboard Navigation:**
+  - `Escape`: Closes the lightbox and returns focus to the trigger element.
+  - `ArrowLeft` / `ArrowRight`: Navigates to the previous or next asset in the sequence.
+  - `Spacebar`: Toggles slideshow play/pause when the slideshow feature is enabled.
+  - `Tab` / `Shift + Tab`: Cycles through active focusable elements inside the modal using an accessibility focus trap.
+- **Touch & Swipe Gestures:**
+  - On mobile and tablet touchscreens, swipe left to advance to the next slide, or swipe right to return to the previous slide.
+- **Deep Linking & Browser History:**
+  - When enabled, opening an image updates the browser's URL hash to `#sorb-img-{id}`.
+  - Users can copy and share the direct URL to land directly on a specific photo in the lightbox.
+  - Pressing the browser's **Back** button closes the lightbox rather than navigating away from the page.
+- **Responsive Filmstrip:**
+  - The bottom thumbnail strip automatically scrolls to keep the currently active image centered and visible.
+  - Users can click or tap any thumbnail to jump immediately to that asset.

@@ -1,0 +1,143 @@
+---
+title: "Developer Reference"
+description: Complete technical reference covering hooks, filters, PHP helper functions, REST API endpoints, post meta, and database architecture.
+sidebar:
+  label: 'Developer Reference'
+  order: 6
+---
+
+This reference document provides technical specifications for WordPress theme authors, custom plugin developers, and engineers extending or integrating with Square Orb.
+
+---
+
+### Action & Filter Hooks
+
+#### `square_orb_enqueue_assets`
+- **Type:** Filter
+- **Arguments:** `(bool $has_gallery)`
+- **Description:** Allows developers to force-enqueue Square Orb's frontend stylesheets and scripts on pages where automated block or shortcode detection does not run (e.g., custom archive templates, dynamic AJAX single-page applications, or external headless endpoints).
+- **Example:**
+```php
+add_filter( 'square_orb_enqueue_assets', function( $has_gallery ) {
+    if ( is_post_type_archive( 'portfolio' ) || is_tax( 'gallery_tag' ) ) {
+        return true;
+    }
+    return $has_gallery;
+});
+```
+
+#### `shortcode_atts_square_orb`
+- **Type:** Filter
+- **Arguments:** `(array $out, array $pairs, array $atts)`
+- **Description:** Standard WordPress shortcode attribute filter hook fired during `sorb_render_shortcode()`.
+- **Example:**
+```php
+add_filter( 'shortcode_atts_square_orb', function( $out, $pairs, $atts ) {
+    // Dynamically override column count on mobile user-agents
+    if ( wp_is_mobile() ) {
+        $out['columns'] = '1';
+    }
+    return $out;
+}, 10, 3 );
+```
+
+---
+
+### Core PHP Functions
+
+Square Orb encapsulates key operations in globally accessible helper functions:
+
+| Function | Signature | Description |
+| :--- | :--- | :--- |
+| `sorb_purge_all_caches()` | `void sorb_purge_all_caches()` | Clears all transient output caches starting with `_transient_sorb_cache_` and flushes external object cache if present. |
+| `sorb_get_attachment_batch_data()` | `array sorb_get_attachment_batch_data( array $attachment_ids )` | Loads post records, taxonomy terms, and image metadata in a single bulk query to prevent `N+1` database bottlenecks. |
+| `sorb_build_exif_html()` | `string sorb_build_exif_html( array $meta )` | Generates formatted HTML markup for camera make, lens, aperture, shutter speed, and ISO badges. |
+| `sorb_extract_gps_from_file()` | `array\|false sorb_extract_gps_from_file( string $file_path )` | Extracts GPS latitude and longitude from an image file's raw EXIF headers. |
+| `sorb_get_option_value()` | `mixed sorb_get_option_value( string $key, mixed $fallback )` | Retrieves an option value with automatic centralized defaults. |
+| `sorb_get_yes_no_option()` | `string sorb_get_yes_no_option( string $key, string $fallback )` | Retrieves a sanitized `'yes'` or `'no'` setting. |
+
+---
+
+### REST API Endpoints
+
+All endpoints are registered under the REST route namespace `square-orb/v1`.
+
+#### 1. Fetch Paginated Image Data
+- **Route:** `GET /wp-json/square-orb/v1/get-images`
+- **Permission:** Public (verifies attachment publication status and parent password protection)
+- **Parameters:**
+  - `ids` (string, required): Comma-separated list of attachment IDs.
+  - `page` (int, optional, default: `1`): Pagination page number.
+  - `limit` (int, optional, default: `20`): Number of items per batch.
+  - `sort` (string, optional, default: `'default'`): Order field (`'title'`, `'date'`, `'random'`).
+  - `order` (string, optional, default: `'asc'`): Sort direction (`'asc'` or `'desc'`).
+  - `videos` (string, optional): Comma-separated list of video URLs matching image order.
+- **Response Format:**
+```json
+{
+  "images": [
+    {
+      "id": 142,
+      "url": "https://example.com/wp-content/uploads/2026/04/alpine-lake-scaled.jpg",
+      "thumb": "https://example.com/wp-content/uploads/2026/04/alpine-lake-large.jpg",
+      "full": "https://example.com/wp-content/uploads/2026/04/alpine-lake-2048x1365.jpg",
+      "width": 2048,
+      "height": 1365,
+      "aspect_ratio": 1.5,
+      "alt": "Glacial alpine lake at sunrise",
+      "title": "Alpine Lake Reflection",
+      "caption": "Shot during morning blue hour in Banff",
+      "meta": {
+        "camera": "Sony ILCE-7RM5",
+        "focal_length": "24",
+        "aperture": "8",
+        "shutter_speed": "0.0125",
+        "iso": "100"
+      },
+      "terms": ["landscapes", "alberta"],
+      "color": "#2d4a5e",
+      "video": ""
+    }
+  ],
+  "total": 48,
+  "has_more": true
+}
+```
+
+#### 2. Record Engagement Telemetry
+- **Route:** `POST /wp-json/square-orb/v1/telemetry`
+- **Permission:** Requires `sorb_enable_telemetry === 'yes'` and a publicly accessible attachment ID. Rate-limited per hashed IP per hour via transient keys.
+- **Request Payload:**
+```json
+{
+  "id": 142,
+  "dwell": 8
+}
+```
+- **Response:**
+```json
+{
+  "success": true,
+  "views": 254,
+  "dwell": 8
+}
+```
+
+---
+
+### Post Meta Keys
+
+| Meta Key | Data Type | Description |
+| :--- | :--- | :--- |
+| `_sorb_dom_color` | string | Hex code of dominant background color for skeleton loading (e.g. `#1e293b`). |
+| `_sorb_gps_data` | array | Serialized array containing extracted `lat` and `lng` float coordinates. |
+| `sorb_view_count` | int | Total aggregated views recorded by the local telemetry engine. |
+| `sorb_total_dwell_time` | int | Total seconds visitors engaged with this asset in the active viewport or lightbox. |
+
+---
+
+### Registered Image Sizes & Taxonomies
+
+- **Image Size:** `sorb-pro-highres` (2048 × 2048 pixels, soft crop / uncropped aspect ratio).
+- **Taxonomy Binding:** Square Orb registers standard WordPress `category` support for the `attachment` post type during `init`, enabling categories across all media library assets.
+

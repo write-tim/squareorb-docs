@@ -9,26 +9,83 @@ sidebar:
     variant: default
 ---
 
-You can choose from five distinct presentation modes, available globally or per-block:
+Square Orb provides five distinct presentation layouts, available globally as site-wide defaults or selectable per-block within the block editor.
 
-- **Perfect Square Grid:** Uniform square cropping.
+---
 
-- **Dynamic Masonry:** Staggered vertical layouts that preserve original image aspect ratios.
+## 1. Perfect Square Grid
 
-- **Cinematic Justified Row:** Horizontal rows that stretch to fill the container.
+The **Perfect Square Grid** enforces a clean 1:1 aspect ratio (`aspect-ratio: 1 / 1`) across all media thumbnails using `object-fit: cover`. 
 
-- **Responsive Swipe Carousel:** A touch-friendly, horizontal scrolling slider.
+* **Best For:** Product catalogs, Instagram-style photo feeds, portfolio overviews, and collections where visual uniformity is preferred.
+* **Key Controls:**
+  * **Desktop Columns:** Choose **Responsive Auto-fill** (automatically fits columns to screen width with a 150px minimum width) or lock to **3, 4, 5, or 6 columns**.
+  * **Mobile Columns:** Choose **1, 2, 3, or 4 columns** for small screens (2 columns is recommended for mobile devices).
+  * **Grid Gap & Corner Radius:** Add pixel spacing between items and smooth thumbnail corners.
 
-- **Interactive Traveler's Map:** Displays image thumbnails as geographic pins on an interactive Leaflet map.
+---
 
-_Note: You can further customize these layouts by adjusting Desktop Columns, Mobile Columns, Grid Gap (spacing), and Corner Radius_.
+## 2. Dynamic Masonry
 
-## Layout Options
+The **Dynamic Masonry** layout preserves the natural aspect ratio of every image without any cropping, arranging them into an organic, multi-column waterfall structure.
 
-| Layout | Grid Cols | Mobile Cols | Gap | Radius | Scroll Anim | Filters | Search | Per Page | Button Text | Button Shape |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **Grid** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **Masonry** | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **Justified** | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **Carousel** | ❌ | ❌ | ✅ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| **Map** | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+* **Best For:** Photography portfolios featuring a mix of tall portraits, wide landscapes, and panoramic shots.
+* **Key Controls:**
+  * Uses CSS columns with `break-inside: avoid` to prevent images from breaking across columns.
+  * Adjust **Grid Gap** and **Corner Radius** to tune spacing and thumbnail aesthetics.
+  * Columns adjust automatically across device breakpoints to maintain visual balance.
+
+---
+
+## 3. Cinematic Justified Row
+
+The **Cinematic Justified Row** layout presents all media in a widescreen 16:9 aspect ratio across responsive column grids.
+
+* **Best For:** Landscape photography, video showcases, movie stills, and editorial narratives where a panoramic, wide-format presentation is desired.
+* **Responsive Breakpoints:**
+  * Desktop (wide viewports): 4 columns.
+  * Tablet (&le; 1024px): 2 columns.
+  * Mobile (&le; 600px): 1 full-width column.
+
+---
+
+## 4. Responsive Swipe Carousel
+
+The **Responsive Swipe Carousel** creates a horizontal, touch-enabled scrolling gallery that lets visitors swipe or scroll through images horizontally.
+
+* **Best For:** Homepage hero sections, featured project highlights, before-and-after sets, and space-constrained areas where a full vertical grid would take up too much page height.
+* **Key Features:**
+  * Native CSS scroll-snap (`scroll-snap-type: x mandatory; scroll-snap-align: center`) for crisp slide settling.
+  * 85% width slide sizing on mobile to indicate adjacent slides.
+  * Hidden browser scrollbars for a clean, app-like visual presentation.
+
+---
+
+## 5. Interactive Traveler's Map
+
+The **Interactive Traveler's Map** layout reads GPS latitude and longitude metadata from your images' EXIF data and renders them as geographic pin markers across an interactive map powered by Leaflet.js.
+
+* **Best For:** Travel blogs, destination weddings, real estate portfolios, nature documentaries, and location-based field photography.
+* **Key Features:**
+  * Automatically extracts coordinates during image processing and stores them in `_sorb_gps_data`.
+  * Pins display circular image thumbnail badges with white borders and elevation drop shadows.
+  * Automatically calculates map bounding box (`map.fitBounds`) to center and zoom in on all pins.
+  * Clicking any pin immediately launches the full-screen lightbox with full technical EXIF data.
+
+---
+
+## Layout Controls Comparison
+
+| Setting | Grid | Masonry | Justified | Carousel | Map |
+|---|:---:|:---:|:---:|:---:|:---:|
+| **Desktop Columns** | ✅ | ❌ | ❌ | ❌ | ❌ |
+| **Mobile Columns** | ✅ | ❌ | ❌ | ❌ | ❌ |
+| **Grid Gap (Spacing)** | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **Corner Radius** | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **Scroll Animations** | ✅ | ✅ | ✅ | ❌ | ❌ |
+| **Category Filters** | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **Smart Search (AI)** | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **AJAX Media Per Page** | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **Load More Button Styling** | ✅ | ✅ | ✅ | ✅ | ❌ |
+| **Lightbox Viewer** | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Right-Click & Watermark Protection** | ✅ | ✅ | ✅ | ✅ | ✅ |

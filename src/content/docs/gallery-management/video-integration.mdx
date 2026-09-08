@@ -1,0 +1,59 @@
+---
+title: "Video Integration"
+description: Embed and stream YouTube, Vimeo, and self-hosted MP4 videos inside your Square Orb galleries and lightbox.
+sidebar:
+  label: 'Video Integration'
+  order: 6
+---
+
+Square Orb allows you to mix high-resolution photography and video seamlessly within the same gallery canvas. Visitors can browse visual video posters on your page, and clicking any video launches a full-screen, responsive player inside the Lightbox.
+
+---
+
+### Supported Video Platforms
+
+Square Orb supports the three most popular video hosting formats:
+
+| Format / Source | URL Pattern | Player Implementation |
+| :--- | :--- | :--- |
+| **YouTube** | `https://www.youtube.com/watch?v=VIDEO_ID`<br/>`https://youtu.be/VIDEO_ID` | Responsive privacy-enhanced YouTube iframe player |
+| **Vimeo** | `https://vimeo.com/VIDEO_ID` | High-definition Vimeo player iframe |
+| **Self-Hosted MP4 / WebM** | `https://yoursite.com/wp-content/uploads/...mp4` | Native HTML5 `<video>` element with custom controls |
+
+---
+
+### Adding Video to a Gallery
+
+Videos in Square Orb are paired with WordPress media attachments. The attached image acts as the video thumbnail (poster image) in your gallery grid, masonry, or carousel layout.
+
+1. Open any page or post containing the **Square Orb Canvas** block in the WordPress block editor.
+2. In the right sidebar, expand the **Gallery Assets** panel.
+3. Locate the thumbnail you wish to link to a video.
+4. Paste the video link into the **Video URL (YouTube, Vimeo, MP4)** input field.
+5. Save or update your post.
+
+The image tile now carries video metadata. When clicked by a site visitor, the lightbox opens and renders the video player rather than a static photo.
+
+---
+
+### Global Video Playback Settings
+
+Configure video playback behavior globally across your site under **Square Orb > Presentation Defaults > Video**:
+
+- **Autoplay Lightbox Videos:**
+  - When enabled, videos start playing automatically the moment they are opened in the Lightbox overlay.
+  - When disabled, videos wait in a paused state until the user clicks the player's play button.
+
+:::note
+Modern web browsers (Google Chrome, Apple Safari, Mozilla Firefox) enforce strict autoplay policies. If audio playback is unmuted, browsers may require visitor interaction with the document before allowing automatic playback.
+:::
+
+---
+
+### Lightbox Video Controls & Teardown
+
+To ensure an optimal user experience and preserve system resources:
+- **Automatic Teardown:** Navigating to the next or previous slide immediately unloads the active video player. This prevents audio from continuing to play in the background while viewing other gallery photos.
+- **Responsive Sizing:** Video player containers scale smoothly to fit within the visitor's viewport while maintaining a standard 16:9 cinematic aspect ratio (constrained to a maximum 900 × 506 px desktop bounding box for optimal presentation).
+- **Filmstrip Compatibility:** Gallery assets with associated videos remain fully navigable in the bottom Lightbox filmstrip.
+
