@@ -87,6 +87,22 @@ svg:where(.astro-c6vsoqas){color:var(--sl-icon-color);font-size:var(--sl-icon-si
 <li><strong>Deterministic Cache Keys:</strong> Cache keys are derived from a cryptographic hash of the gallery configuration (attachment IDs, layout style, column count, and active presentation parameters). If any parameter changes, a new cache entry is automatically generated.</li>
 <li><strong>Batched Metadata Loading:</strong> Square Orb uses <code dir="auto">sorb_get_attachment_batch_data()</code> to query attachment post records, category taxonomy terms, and image metadata in a single combined SQL query rather than loading each media item individually (<code dir="auto">N+1</code> query prevention).</li>
 </ul>
+<pre class="mermaid" dir="ltr">flowchart TD
+    A[Page Request with Gallery] --> B[Compute Cache Key Hash&#x3C;br/>md5: IDs + Layout + Settings]
+    B --> C{Transient Cache Hit?&#x3C;br/>_transient_sorb_cache_*}
+    C -->|Yes: Cache Hit| D[Deliver Pre-Rendered HTML&#x3C;br/>Zero DB Overhead]
+    C -->|No: Cache Miss| E[Batch Fetch Media Records&#x3C;br/>sorb_get_attachment_batch_data]
+    E --> F[Inject Dominant Color Placeholders&#x3C;br/>_sorb_dom_color]
+    F --> G[Compile Complete Gallery HTML]
+    G --> H[Store WordPress Transient&#x3C;br/>24-Hour Lifespan]
+    H --> D
+
+    subgraph Cache Purge
+        I[Click 'Purge High-Performance Cache'] --> J[sorb_purge_all_caches]
+        J --> K[DELETE _transient_sorb_cache_%]
+        K --> L[Flush Object Cache: wp_cache_flush]
+    end
+    L -.->|Forces Miss on Next Visit| C</pre>
 <hr>
 <h3 id="high-resolution-image-pipeline-sorb-pro-highres">High-Resolution Image Pipeline (<code dir="auto">sorb-pro-highres</code>)</h3>
 <p>Upon plugin activation, Square Orb registers a custom WordPress image size:</p>

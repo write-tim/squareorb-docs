@@ -88,6 +88,21 @@ svg:where(.astro-c6vsoqas){color:var(--sl-icon-color);font-size:var(--sl-icon-si
 <li><strong>Interactive Leaflet Map:</strong> The layout initializes an interactive map using a locally bundled version of <strong>Leaflet.js v1.9.4</strong> and OpenStreetMap tiles.</li>
 <li><strong>Interactive Markers &#x26; Lightbox:</strong> Each plotted pin displays a thumbnail preview of the photo. Clicking the preview opens the full-resolution image in the Square Orb Lightbox with complete EXIF camera statistics, zoom, and transitions.</li>
 </ol>
+<pre class="mermaid" dir="ltr">flowchart TD
+    A[Add Media to Traveler's Map] --> B{GPS Cached in Post Meta?&#x3C;br/>_sorb_gps_data}
+    B -->|Yes| C[Read Cached Lat / Lng]
+    B -->|No| D[Inspect EXIF Headers from File]
+    D --> E{Original Scaled by WP?}
+    E -->|Yes| F[Trace to Unmodified original_image File]
+    E -->|No| G[Extract GPSLatitude &#x26; GPSLongitude]
+    F --> G
+    G --> H[Cache Coordinates in _sorb_gps_data Post Meta]
+    H --> C
+    C --> I[Initialize Leaflet.js &#x26; OpenStreetMap Tiles]
+    I --> J[Plot Circular Thumbnail Marker Pins]
+    J --> K[User Clicks Marker Pin]
+    K --> L[Display Interactive Popup Card]
+    L --> M[Click Popup: Open Full Lightbox]</pre>
 <hr>
 <h3 id="enabling-travelers-map">Enabling Traveler’s Map</h3>
 <h4 id="in-the-block-editor">In the Block Editor</h4>

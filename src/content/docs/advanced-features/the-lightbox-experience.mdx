@@ -21,6 +21,38 @@ The Lightbox overlay provides an immersive, full-screen viewing experience for p
 
 ---
 
+### Lightbox Lifecycle & Media Flow
+
+```mermaid
+flowchart TD
+    A[Visitor Clicks Gallery Item] --> B[Open Full-Screen Lightbox Overlay]
+    B --> C[Update Browser URL Hash: #sorb-img-{id}]
+    B --> D{Asset Media Type}
+    
+    D -->|Static Photograph| E[Load High-Res Image: sorb-pro-highres]
+    E --> F[Display Camera EXIF Metadata Badges]
+    
+    D -->|Video URL Present| G[Initialize Responsive Video Player]
+    G --> G1[YouTube / Vimeo / HTML5 MP4]
+    G1 --> G2{Autoplay Videos Enabled?}
+    G2 -->|Yes| G3[Start Video Playback Immediately]
+    G2 -->|No| G4[Display Video Player Paused]
+
+    F --> H[Mount Interactive Filmstrip & Navigation]
+    G3 --> H
+    G4 --> H
+
+    H --> I[Navigation Event<br/>Arrow Keys / Touch Swipe / Filmstrip Click]
+    I --> J[Unload Active Video Player<br/>Prevent Background Audio]
+    J --> K[Trigger Selected CSS Transition<br/>1 of 11 GPU-Accelerated Animations]
+    K --> D
+
+    H --> L[Close Event<br/>Escape Key / Matte Click / Browser Back]
+    L --> M[Teardown Modal & Restore Document Focus]
+```
+
+---
+
 ### Available Transitions
 
 Square Orb includes 11 CSS-accelerated lightbox transition effects:

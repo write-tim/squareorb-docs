@@ -18,6 +18,24 @@ The **Traveler's Map** layout transforms your image collection into an interacti
 4. **Interactive Leaflet Map:** The layout initializes an interactive map using a locally bundled version of **Leaflet.js v1.9.4** and OpenStreetMap tiles.
 5. **Interactive Markers & Lightbox:** Each plotted pin displays a thumbnail preview of the photo. Clicking the preview opens the full-resolution image in the Square Orb Lightbox with complete EXIF camera statistics, zoom, and transitions.
 
+```mermaid
+flowchart TD
+    A[Add Media to Traveler's Map] --> B{GPS Cached in Post Meta?<br/>_sorb_gps_data}
+    B -->|Yes| C[Read Cached Lat / Lng]
+    B -->|No| D[Inspect EXIF Headers from File]
+    D --> E{Original Scaled by WP?}
+    E -->|Yes| F[Trace to Unmodified original_image File]
+    E -->|No| G[Extract GPSLatitude & GPSLongitude]
+    F --> G
+    G --> H[Cache Coordinates in _sorb_gps_data Post Meta]
+    H --> C
+    C --> I[Initialize Leaflet.js & OpenStreetMap Tiles]
+    I --> J[Plot Circular Thumbnail Marker Pins]
+    J --> K[User Clicks Marker Pin]
+    K --> L[Display Interactive Popup Card]
+    L --> M[Click Popup: Open Full Lightbox]
+```
+
 ---
 
 ### Enabling Traveler's Map

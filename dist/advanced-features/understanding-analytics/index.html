@@ -99,6 +99,28 @@ svg:where(.astro-c6vsoqas){color:var(--sl-icon-color);font-size:var(--sl-icon-si
 <li><strong>GDPR &#x26; CCPA Compliant:</strong> Because metrics are aggregated purely per asset ID without user identification, no consent banner or cookie disclaimer is required for Square Orb’s telemetry.</li>
 <li><strong>Locally Bundled Visualizations:</strong> The charts are rendered using a locally bundled copy of Chart.js—no external CDN connections are established.</li>
 </ul>
+<pre class="mermaid" dir="ltr">flowchart TD
+    subgraph Client Browser
+        A[Visitor Interacts with Gallery Asset] --> B[Front-End Timer Computes Dwell Seconds]
+        B --> C[POST /wp-json/square-orb/v1/telemetry&#x3C;br/>Payload: id, dwell]
+    end
+
+    subgraph WordPress Backend
+        C --> D{Telemetry Enabled?&#x3C;br/>sorb_enable_telemetry}
+        D -->|No| E[403 Disabled: Discard Request]
+        D -->|Yes| F{1-Hour Rate Limit Transient}
+        F -->|Duplicate| G[200 OK: Ignore Repeat]
+        F -->|Unique| H[Update Attachment Post Meta]
+        H --> H1[sorb_view_count + 1]
+        H --> H2[sorb_total_dwell_time + seconds]
+    end
+
+    subgraph Admin Analytics Tab
+        H1 --> I[Aggregated Dashboard]
+        H2 --> I
+        I --> J[Chart.js Visual Performance Graphs]
+        I --> K[Downloadable CSV Reports]
+    end</pre>
 <hr>
 <h3 id="key-engagement-metrics">Key Engagement Metrics</h3>
 <p>The Analytics dashboard provides deep visibility into asset interaction:</p>

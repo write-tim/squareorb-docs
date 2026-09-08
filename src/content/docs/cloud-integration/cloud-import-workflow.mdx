@@ -13,6 +13,35 @@ import { Steps } from '@astrojs/starlight/components';
 
 Once your Google account is authenticated on the Authentication tab, use the **Import Media** tab to sideload assets directly into your WordPress Media Library.
 
+---
+
+### Import Lifecycle & Pipeline
+
+```mermaid
+flowchart TD
+    A[Click 'Select Cloud Photos via Google Canvas'] --> B[Create Google Picker Session<br/>POST photospicker.googleapis.com]
+    B --> C[Select Photos in Google Photos Modal]
+    C --> D[Poll Picker Session State<br/>sorb_poll_picker_session]
+    D --> E[Render Staged Photo Preview Grid]
+    E --> F[Select Images & Click 'Sideload to WordPress Core']
+    F --> G[Batch Asynchronous Sideloading<br/>sorb_sideload_image]
+    G --> H[Process Each Media Asset]
+    subgraph Processing Pipeline
+        H --> H1[Download Image Stream]
+        H1 --> H2[Generate WP Responsive Sizes]
+        H2 --> H3[Extract EXIF & GPS Metadata]
+        H3 --> H4[Calculate Dominant Color HEX]
+        H4 --> H5[Apply Watermark if active]
+    end
+    H5 --> I{Import Status}
+    I -->|Success| J[Green Checkmark Thumbnail<br/>Available for Galleries]
+    I -->|Network Error| K[Log Error Details<br/>Enable 'Retry Failed Only']
+```
+
+---
+
+### Step-by-Step Import Instructions
+
 <Steps>
 
 1. Navigate to **Square Orb > Import Media** in your WordPress admin menu.

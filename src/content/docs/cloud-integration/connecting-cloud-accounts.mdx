@@ -25,6 +25,33 @@ To set up your cloud connections:
 
 </Steps>
 
+---
+
+### OAuth 2.0 Authentication Flow
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Admin as Site Admin
+    participant WP as Square Orb Admin
+    participant OAuth as Cloud Provider OAuth
+    
+    Admin->>WP: Enter Client ID & Secret
+    Admin->>WP: Click 'Save Credentials' (Required First Step)
+    Admin->>WP: Click 'Connect Account'
+    WP->>OAuth: Redirect with Client ID + Redirect URI + Scopes
+    Note over OAuth: Validates Authorized Redirect URI<br/>& Test Users Email Roster
+    OAuth->>Admin: Display Consent Screen
+    Admin->>OAuth: Authorize Access
+    OAuth->>WP: Redirect with Authorization Code
+    WP->>OAuth: Exchange Code for Access & Refresh Tokens
+    OAuth->>WP: Return Secure Tokens
+    WP->>WP: Save Tokens in WordPress Database
+    WP->>Admin: Display 'Connected' Badge
+```
+
+---
+
 ### Key Concepts to Remember
 
 - **Authorized Redirect URI:** Both Google Cloud Console and Adobe Developer Console require an "Authorized Redirect URI." You must copy the exact URL displayed on your WordPress **Square Orb > Authentication** tab (e.g., `https://yourdomain.com/wp-admin/admin.php?page=square-orb`) and paste it into the respective developer console.
