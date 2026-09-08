@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import mermaid from 'astro-mermaid';
 import { parse as parseJs } from 'acorn';
 
 function generateArticlesManifest() {
@@ -140,6 +141,7 @@ export default defineConfig({
   },
   integrations: [
     articleManifestIntegration(),
+    mermaid(),
     starlight({
       title: 'Square Orb Documentation',
       logo: {
