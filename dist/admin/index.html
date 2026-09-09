@@ -161,6 +161,18 @@
         line-height: 1.3;
       }
 
+      /* Injected Text Field Styling */
+      .cms-injected-text-field {
+        margin-top: 0.85rem;
+      }
+      .cms-injected-text-field label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #334155;
+        margin-bottom: 0.35rem;
+      }
+
       /* Link Target (New Window) Option Styling */
       .cms-link-target-section {
         margin-top: 0.85rem;
@@ -505,176 +517,268 @@
       }
 
       function enhanceLinkDialog(dialog) {
-        if (!dialog || dialog.querySelector('.cms-article-picker-section')) {
-          return;
-        }
+        if (!dialog) return;
 
         const urlInput = dialog.querySelector('input[id$="-url"], input[aria-label="URL"]');
-        if (!urlInput) {
-          return;
-        }
+        if (!urlInput) return;
 
-        const urlRow = urlInput.closest('[role="none"]') || urlInput.parentElement;
-        if (!urlRow) {
-          return;
-        }
+        // 1. Locate the outer container for the URL field
+        const urlLabel = dialog.querySelector('label[for="' + urlInput.id + '"]') || (urlInput.labels && urlInput.labels[0]);
+        const urlFieldContainer = urlLabel
+          ? (urlLabel.closest('div[role="none"]') || urlLabel.parentElement)
+          : (urlInput.closest('[role="none"]')?.parentElement || urlInput.parentElement);
+        if (!urlFieldContainer || !urlFieldContainer.parentNode) return;
 
-        const picker = document.createElement('div');
-        picker.className = 'cms-article-picker-section';
-        picker.innerHTML = `
-          <div class="cms-article-picker-header">
-            <label class="cms-article-picker-title">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #7c3aed;">
-                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-              </svg>
-              Pick from Existing Articles
-            </label>
-            <span class="cms-article-picker-hint">(Auto-fills URL &amp; title)</span>
-          </div>
-          <div class="cms-article-filter-wrapper">
-            <input type="search" class="cms-article-filter-input" placeholder="Search articles by title or section..." />
-          </div>
-          <div>
-            <select class="cms-article-select">
-              <option value="">-- Choose an existing article (or enter URL below) --</option>
-            </select>
-          </div>
-          <div class="cms-article-note">Selecting an article populates the destination URL and link text.</div>
-        `;
+        // 2. Ensure the "Pick from Existing Articles" section exists and is placed BEFORE the URL field
+        let picker = dialog.querySelector('.cms-article-picker-section');
+        if (!picker) {
+          picker = document.createElement('div');
+          picker.className = 'cms-article-picker-section';
+          picker.innerHTML = `
+            <div class="cms-article-picker-header">
+              <label class="cms-article-picker-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #7c3aed;">
+                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                </svg>
+                Pick from Existing Articles
+              </label>
+              <span class="cms-article-picker-hint">(Auto-fills URL &amp; title)</span>
+            </div>
+            <div class="cms-article-filter-wrapper">
+              <input type="search" class="cms-article-filter-input" placeholder="Search articles by title or section..." />
+            </div>
+            <div>
+              <select class="cms-article-select">
+                <option value="">-- Choose an existing article (or enter URL below) --</option>
+              </select>
+            </div>
+            <div class="cms-article-note">Selecting an article populates the destination URL and link text.</div>
+          `;
 
-        const select = picker.querySelector('.cms-article-select');
-        const filterInput = picker.querySelector('.cms-article-filter-input');
+          const filterInput = picker.querySelector('.cms-article-filter-input');
+          const select = picker.querySelector('.cms-article-select');
 
-        function renderSelectOptions(filterText) {
-          const query = (filterText || '').toLowerCase().trim();
-          select.innerHTML = '<option value="">-- Choose an existing article (or enter URL below) --</option>';
-
-          const categories = {};
-          articlesList.forEach(function (art) {
-            const cat = art.category || 'Other';
-            if (!categories[cat]) categories[cat] = [];
-            categories[cat].push(art);
+          filterInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              e.stopPropagation();
+            }
           });
 
-          Object.keys(categories).forEach(function (cat) {
-            const matching = categories[cat].filter(function (art) {
-              if (!query) return true;
-              return (
-                art.title.toLowerCase().includes(query) ||
-                (art.desc && art.desc.toLowerCase().includes(query)) ||
-                cat.toLowerCase().includes(query) ||
-                art.route.toLowerCase().includes(query)
-              );
+          function renderSelectOptions(filterText) {
+            const query = (filterText || '').toLowerCase().trim();
+            select.innerHTML = '<option value="">-- Choose an existing article (or enter URL below) --</option>';
+
+            const categories = {};
+            articlesList.forEach(function (art) {
+              const cat = art.category || 'Other';
+              if (!categories[cat]) categories[cat] = [];
+              categories[cat].push(art);
             });
 
-            if (matching.length > 0) {
-              const optgroup = document.createElement('optgroup');
-              optgroup.label = cat;
-              matching.forEach(function (art) {
-                const opt = document.createElement('option');
-                opt.value = art.route;
-                opt.textContent = art.title;
-                opt.dataset.title = art.title;
-                opt.dataset.desc = art.desc || '';
-                if (urlInput.value && (urlInput.value === art.route || urlInput.value === art.route.replace(/\/$/, ''))) {
-                  opt.selected = true;
-                }
-                optgroup.appendChild(opt);
+            Object.keys(categories).forEach(function (cat) {
+              const matching = categories[cat].filter(function (art) {
+                if (!query) return true;
+                return (
+                  art.title.toLowerCase().includes(query) ||
+                  (art.desc && art.desc.toLowerCase().includes(query)) ||
+                  cat.toLowerCase().includes(query) ||
+                  art.route.toLowerCase().includes(query)
+                );
               });
-              select.appendChild(optgroup);
+
+              if (matching.length > 0) {
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = cat;
+                matching.forEach(function (art) {
+                  const opt = document.createElement('option');
+                  opt.value = art.route;
+                  opt.textContent = art.title;
+                  opt.dataset.title = art.title;
+                  opt.dataset.desc = art.desc || '';
+                  if (urlInput.value && (urlInput.value === art.route || urlInput.value === art.route.replace(/\/$/, ''))) {
+                    opt.selected = true;
+                  }
+                  optgroup.appendChild(opt);
+                });
+                select.appendChild(optgroup);
+              }
+            });
+          }
+
+          renderSelectOptions('');
+
+          filterInput.addEventListener('input', function () {
+            renderSelectOptions(filterInput.value);
+          });
+
+          select.addEventListener('change', function () {
+            const selectedRoute = select.value;
+            if (!selectedRoute) return;
+
+            setInputValue(urlInput, selectedRoute);
+            if (!dialog._isUserToggledTarget) {
+              const cb = dialog.querySelector('.cms-link-target-checkbox');
+              if (cb) cb.checked = false;
+            }
+
+            const currentTextInput = dialog.querySelector('input[id$="-text"], input[aria-label="Text"]');
+            const selectedOpt = select.options[select.selectedIndex];
+            const title = selectedOpt ? selectedOpt.dataset.title : '';
+
+            if (currentTextInput && title) {
+              if (!currentTextInput.value || currentTextInput.value === dialog._originalSelectedText || currentTextInput.value === selectedRoute) {
+                setInputValue(currentTextInput, title);
+              }
             }
           });
         }
 
-        renderSelectOptions('');
-
-        filterInput.addEventListener('input', function () {
-          renderSelectOptions(filterInput.value);
-        });
-
-        select.addEventListener('change', function () {
-          const selectedRoute = select.value;
-          if (!selectedRoute) return;
-
-          setInputValue(urlInput, selectedRoute);
-          if (!isUserToggled) {
-            targetCheckbox.checked = false;
-          }
-
-          const textInput = dialog.querySelector('input[id$="-text"], input[aria-label="Text"]');
-          const selectedOpt = select.options[select.selectedIndex];
-          const title = selectedOpt ? selectedOpt.dataset.title : '';
-
-          if (textInput && title) {
-            if (!textInput.value || textInput.value === urlInput.defaultValue || textInput.value === selectedRoute) {
-              setInputValue(textInput, title);
-            }
-          }
-        });
-
-        // Insert picker right before the URL input field
-        urlRow.parentNode.insertBefore(picker, urlRow);
-
-        // ---------------------------------------------------------------
-        // Option to Open Link in a New Window
-        // ---------------------------------------------------------------
-        const targetSection = document.createElement('div');
-        targetSection.className = 'cms-link-target-section';
-        targetSection.innerHTML = `
-          <label class="cms-link-target-label">
-            <input type="checkbox" class="cms-link-target-checkbox" id="cms-link-target-blank" />
-            <span class="cms-link-target-text">Open link in a new window</span>
-          </label>
-        `;
-        const targetCheckbox = targetSection.querySelector('.cms-link-target-checkbox');
-
-        // Place targetSection right after the fields and before the dialog footer buttons
-        const footer = dialog.querySelector('footer');
-        if (footer && footer.parentNode) {
-          footer.parentNode.insertBefore(targetSection, footer);
-        } else {
-          urlRow.parentNode.insertBefore(targetSection, urlRow.nextSibling);
+        // Place picker immediately BEFORE the URL field container so URL label stays above the URL field
+        if (picker.parentNode !== urlFieldContainer.parentNode || picker.nextSibling !== urlFieldContainer) {
+          urlFieldContainer.parentNode.insertBefore(picker, urlFieldContainer);
         }
 
-        let isUserToggled = false;
-        let initialVal = (urlInput.value || '').trim();
+        // 3. Ensure the Text field exists and is placed right after the URL field
+        let builtInTextInput = dialog.querySelector('input[id$="-text"]:not(.cms-injected-input), input[aria-label="Text"]:not(.cms-injected-input)');
+        let activeTextFieldContainer = null;
+        let activeTextInput = null;
+        let isInjectedText = false;
 
+        if (builtInTextInput) {
+          // Sveltia rendered its native Text field
+          const prevInjected = dialog.querySelector('.cms-injected-text-field');
+          if (prevInjected) prevInjected.remove();
+
+          const textLabel = dialog.querySelector('label[for="' + builtInTextInput.id + '"]') || (builtInTextInput.labels && builtInTextInput.labels[0]);
+          activeTextFieldContainer = textLabel
+            ? (textLabel.closest('div[role="none"]') || textLabel.parentElement)
+            : (builtInTextInput.closest('[role="none"]')?.parentElement || builtInTextInput.parentElement);
+          activeTextInput = builtInTextInput;
+        } else {
+          // Sveltia omitted the Text field (text was selected) - inject matching Text field
+          isInjectedText = true;
+          let injectedContainer = dialog.querySelector('.cms-injected-text-field');
+          if (!injectedContainer) {
+            const textInputId = urlInput.id ? urlInput.id.replace(/-url$/, '-text') : 'cms-link-text-input';
+            injectedContainer = document.createElement('div');
+            injectedContainer.setAttribute('role', 'none');
+            injectedContainer.className = 'cms-injected-text-field';
+            const wrapperClass = (urlInput.parentElement && urlInput.parentElement.className) || 'sui text-field';
+            const inputClass = urlInput.className || '';
+            injectedContainer.innerHTML = `
+              <label for="${textInputId}">Text</label>
+              <div role="none" class="${wrapperClass}">
+                <input type="text" dir="auto" id="${textInputId}" class="${inputClass} cms-injected-input" aria-label="Text" />
+              </div>
+            `;
+          }
+          activeTextFieldContainer = injectedContainer;
+          activeTextInput = injectedContainer.querySelector('input');
+        }
+
+        // Position activeTextFieldContainer right AFTER urlFieldContainer
+        if (activeTextFieldContainer.parentNode !== urlFieldContainer.parentNode || urlFieldContainer.nextSibling !== activeTextFieldContainer) {
+          urlFieldContainer.parentNode.insertBefore(activeTextFieldContainer, urlFieldContainer.nextSibling);
+        }
+
+        // 4. Ensure "Open link in a new window" checkbox section exists and is placed BELOW the Text field
+        let targetSection = dialog.querySelector('.cms-link-target-section');
+        if (!targetSection) {
+          targetSection = document.createElement('div');
+          targetSection.className = 'cms-link-target-section';
+          targetSection.innerHTML = `
+            <label class="cms-link-target-label">
+              <input type="checkbox" class="cms-link-target-checkbox" id="cms-link-target-blank" />
+              <span class="cms-link-target-text">Open link in a new window</span>
+            </label>
+          `;
+          const cb = targetSection.querySelector('.cms-link-target-checkbox');
+          cb.addEventListener('change', function () {
+            dialog._isUserToggledTarget = true;
+          });
+        }
+
+        // Position targetSection right AFTER activeTextFieldContainer
+        if (targetSection.parentNode !== activeTextFieldContainer.parentNode || activeTextFieldContainer.nextSibling !== targetSection) {
+          activeTextFieldContainer.parentNode.insertBefore(targetSection, activeTextFieldContainer.nextSibling);
+        }
+
+        const targetCheckbox = targetSection.querySelector('.cms-link-target-checkbox');
+
+        // Helper: Check if a URL is external
         function checkIsExternal(val) {
           return /^(https?:)?\/\//i.test(val);
         }
 
-        // Initialize checkbox state from existing URL
-        if (initialVal.endsWith('#_blank')) {
-          targetCheckbox.checked = true;
-          const clean = initialVal.slice(0, -7);
-          setInputValue(urlInput, clean);
-        } else if (initialVal.endsWith('#_self')) {
-          targetCheckbox.checked = false;
-          const clean = initialVal.slice(0, -6);
-          setInputValue(urlInput, clean);
-          isUserToggled = true;
-        } else if (checkIsExternal(initialVal)) {
-          targetCheckbox.checked = true;
-        } else {
-          targetCheckbox.checked = false;
-        }
+        // 5. Initialize field values and checkbox state on dialog open
+        if (!dialog._cmsStateInitialized || dialog.dataset.cmsOpenState !== 'true') {
+          dialog.dataset.cmsOpenState = 'true';
+          dialog._cmsStateInitialized = true;
+          dialog._isUserToggledTarget = false;
 
-        targetCheckbox.addEventListener('change', function () {
-          isUserToggled = true;
-        });
+          let rawUrl = (urlInput.value || '').trim();
+          let cleanUrl = rawUrl.replace(/#(?:_blank|_self)$/, '');
+          let hasBlank = rawUrl.endsWith('#_blank');
+          let hasSelf = rawUrl.endsWith('#_self');
+          let isExternal = checkIsExternal(cleanUrl);
+          let isLikelyUrl = isExternal || cleanUrl.startsWith('/') || cleanUrl.startsWith('#') || cleanUrl.startsWith('mailto:') || cleanUrl.startsWith('./') || cleanUrl.startsWith('../');
 
-        urlInput.addEventListener('input', function () {
-          const val = urlInput.value.trim();
-          if (!isUserToggled) {
-            if (checkIsExternal(val)) {
-              targetCheckbox.checked = true;
-            } else if (val.startsWith('/') || val.startsWith('#')) {
+          if (isInjectedText) {
+            if (hasBlank || hasSelf || dialog.querySelector('.title')?.textContent?.includes('Update') || isLikelyUrl) {
+              setInputValue(urlInput, cleanUrl);
+              targetCheckbox.checked = hasBlank || (!hasSelf && isExternal);
+              if (hasSelf) dialog._isUserToggledTarget = true;
+
+              let linkText = window.getSelection()?.toString()?.trim() || '';
+              if (!linkText && cleanUrl) {
+                const linkEl = document.querySelector('.lexical-root a[href*="' + cleanUrl + '"]');
+                if (linkEl) linkText = linkEl.textContent.trim();
+              }
+              setInputValue(activeTextInput, linkText || cleanUrl);
+              dialog._originalSelectedText = linkText || cleanUrl;
+            } else if (rawUrl) {
+              setInputValue(activeTextInput, rawUrl);
+              dialog._originalSelectedText = rawUrl;
+              setInputValue(urlInput, '');
+              targetCheckbox.checked = false;
+            } else {
+              setInputValue(activeTextInput, '');
+              dialog._originalSelectedText = '';
               targetCheckbox.checked = false;
             }
+          } else {
+            if (hasBlank) {
+              targetCheckbox.checked = true;
+              setInputValue(urlInput, cleanUrl);
+            } else if (hasSelf) {
+              targetCheckbox.checked = false;
+              dialog._isUserToggledTarget = true;
+              setInputValue(urlInput, cleanUrl);
+            } else {
+              targetCheckbox.checked = isExternal;
+            }
+            dialog._originalSelectedText = '';
           }
-        });
+        }
 
+        // 6. Dynamic input listener on urlInput
+        if (!urlInput._cmsTargetListenerAttached) {
+          urlInput._cmsTargetListenerAttached = true;
+          urlInput.addEventListener('input', function () {
+            const val = urlInput.value.trim();
+            if (!dialog._isUserToggledTarget) {
+              if (checkIsExternal(val)) {
+                targetCheckbox.checked = true;
+              } else if (val.startsWith('/') || val.startsWith('#')) {
+                targetCheckbox.checked = false;
+              }
+            }
+          });
+        }
+
+        // 7. Format URL and replace text before submission
         function applyLinkTargetToInput() {
           let currentVal = urlInput.value.trim();
           if (!currentVal) return;
@@ -684,7 +788,7 @@
           if (targetCheckbox.checked) {
             setInputValue(urlInput, currentVal + '#_blank');
           } else {
-            if (checkIsExternal(currentVal) && isUserToggled) {
+            if (checkIsExternal(currentVal) && dialog._isUserToggledTarget) {
               setInputValue(urlInput, currentVal + '#_self');
             } else {
               setInputValue(urlInput, currentVal);
@@ -692,22 +796,64 @@
           }
         }
 
-        // Intercept primary action button click (capture phase)
-        dialog.addEventListener('click', function (e) {
-          const btn = e.target.closest('button');
-          if (!btn) return;
-          const isCancel = btn.textContent && (btn.textContent.includes('Cancel') || btn.textContent.includes('cancel'));
-          if (!isCancel && (btn.classList.contains('primary') || btn.type === 'submit' || (btn.parentElement && btn.parentElement.tagName === 'FOOTER'))) {
-            applyLinkTargetToInput();
+        function handleInsertAction() {
+          if (isInjectedText && activeTextInput) {
+            const newText = activeTextInput.value.trim();
+            if (newText && newText !== dialog._originalSelectedText) {
+              const lexicalRoot = document.querySelector('.lexical-root');
+              const editor = lexicalRoot?.__lexicalEditor;
+              if (editor && editor._commands) {
+                for (const [cmdKey] of editor._commands) {
+                  if (cmdKey && cmdKey.type === 'CONTROLLED_TEXT_INSERTION_COMMAND') {
+                    editor.dispatchCommand(cmdKey, newText);
+                    break;
+                  }
+                }
+              }
+            }
           }
-        }, true);
 
-        // Intercept Enter keydown in inputs (capture phase)
-        dialog.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter') {
-            applyLinkTargetToInput();
-          }
-        }, true);
+          applyLinkTargetToInput();
+        }
+
+        // Enter key inside injected text input triggers submission
+        if (isInjectedText && activeTextInput && !activeTextInput._cmsEnterListenerAttached) {
+          activeTextInput._cmsEnterListenerAttached = true;
+          activeTextInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              handleInsertAction();
+              const primaryBtn = dialog.querySelector('button.primary, button[type="submit"]');
+              if (primaryBtn) primaryBtn.click();
+            }
+          });
+        }
+
+        // Intercept primary action button click (capture phase)
+        if (!dialog._cmsClickCaptureAttached) {
+          dialog._cmsClickCaptureAttached = true;
+          dialog.addEventListener('click', function (e) {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+            const isCancel = btn.textContent && (btn.textContent.includes('Cancel') || btn.textContent.includes('cancel'));
+            if (!isCancel && (btn.classList.contains('primary') || btn.type === 'submit' || (btn.parentElement && btn.parentElement.tagName === 'FOOTER') || btn.closest('.footer'))) {
+              handleInsertAction();
+            }
+          }, true);
+        }
+
+        // Intercept Enter keydown in dialog (capture phase)
+        if (!dialog._cmsKeydownCaptureAttached) {
+          dialog._cmsKeydownCaptureAttached = true;
+          dialog.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+              if (e.target && e.target.classList.contains('cms-article-filter-input')) {
+                return;
+              }
+              handleInsertAction();
+            }
+          }, true);
+        }
       }
 
       function initLinkDialogObserver() {
@@ -728,8 +874,13 @@
                 }
               }
             } else if (m.type === 'attributes' && m.attributeName === 'open') {
-              if (m.target && m.target.open) {
-                enhanceLinkDialog(m.target);
+              if (m.target) {
+                if (m.target.open) {
+                  enhanceLinkDialog(m.target);
+                } else {
+                  m.target.dataset.cmsOpenState = 'false';
+                  m.target._cmsStateInitialized = false;
+                }
               }
             }
           }
