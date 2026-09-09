@@ -1,4 +1,46 @@
-<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Control Panel Overview | Square Orb Documentation</title><link rel="canonical"/><link rel="shortcut icon" href="/square-orb-logo.png" type="image/png"/><meta name="generator" content="Astro v5.18.2"/><meta name="generator" content="Starlight v0.32.6"/><meta property="og:title" content="Control Panel Overview"/><meta property="og:type" content="article"/><meta property="og:url"/><meta property="og:locale" content="en"/><meta property="og:description" content="Control panel overview documentation for the plugin admin interface."/><meta property="og:site_name" content="Square Orb Documentation"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Control panel overview documentation for the plugin admin interface."/><script>
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Control Panel Overview | Square Orb Documentation</title><link rel="canonical"/><script>
+            (function() {
+              function processLinks() {
+                document.querySelectorAll('a[href]').forEach(function(a) {
+                  var href = a.getAttribute('href') || '';
+                  var hasBlank = href.endsWith('#_blank') || href.includes('#_blank?') || href.includes('#_blank#');
+                  var isExt = /^(https?:)?\/\//i.test(href) && !href.includes(window.location.host);
+                  var isSelf = href.endsWith('#_self') || href.includes('target=_self');
+                  if ((hasBlank || isExt) && !isSelf) {
+                    a.setAttribute('target', '_blank');
+                    a.setAttribute('rel', 'noopener noreferrer');
+                    if (hasBlank) {
+                      a.setAttribute('href', href.replace(/#_blank$/, '').replace(/#_blank\?/, '?').replace(/#_blank#/, '#'));
+                    }
+                  } else if (isSelf) {
+                    a.setAttribute('target', '_self');
+                    a.setAttribute('href', href.replace(/#_self$/, ''));
+                  }
+                });
+              }
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', processLinks);
+              } else {
+                processLinks();
+              }
+              document.addEventListener('astro:page-load', processLinks);
+              document.addEventListener('click', function(e) {
+                var a = e.target.closest('a[href]');
+                if (!a) return;
+                var href = a.getAttribute('href') || '';
+                var hasBlank = href.endsWith('#_blank') || href.includes('#_blank?') || href.includes('#_blank#');
+                var isExt = /^(https?:)?\/\//i.test(href) && !href.includes(window.location.host);
+                var isSelf = href.endsWith('#_self') || href.includes('target=_self');
+                if ((hasBlank || isExt) && !isSelf) {
+                  a.setAttribute('target', '_blank');
+                  a.setAttribute('rel', 'noopener noreferrer');
+                  if (hasBlank) {
+                    a.setAttribute('href', href.replace(/#_blank$/, '').replace(/#_blank\?/, '?').replace(/#_blank#/, '#'));
+                  }
+                }
+              }, true);
+            })();
+          </script><link rel="shortcut icon" href="/square-orb-logo.png" type="image/png"/><meta name="generator" content="Astro v5.18.2"/><meta name="generator" content="Starlight v0.32.6"/><meta property="og:title" content="Control Panel Overview"/><meta property="og:type" content="article"/><meta property="og:url"/><meta property="og:locale" content="en"/><meta property="og:description" content="Control panel overview documentation for the plugin admin interface."/><meta property="og:site_name" content="Square Orb Documentation"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Control panel overview documentation for the plugin admin interface."/><script>
 	window.StarlightThemeProvider = (() => {
 		const storedTheme =
 			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
@@ -234,6 +276,6 @@ svg:where(.astro-c6vsoqas){color:var(--sl-icon-color);font-size:var(--sl-icon-si
 <h2 id="6-support-tab">6. Support Tab</h2>
 <p>The <strong>☕ Support</strong> tab (<code dir="auto">tab=support</code>) provides:</p>
 <ul>
-<li>Direct links to the <a href="https://squareorb-docs.awesomediscoveryzone.com/">official documentation</a>.</li>
-<li>A link to support ongoing plugin maintenance and feature development on <a href="https://ko-fi.com/timothyjohnson618">Ko-fi</a>.</li>
+<li>Direct links to the <a href="https://squareorb-docs.awesomediscoveryzone.com/" target="_blank" rel="noopener noreferrer">official documentation</a>.</li>
+<li>A link to support ongoing plugin maintenance and feature development on <a href="https://ko-fi.com/timothyjohnson618" target="_blank" rel="noopener noreferrer">Ko-fi</a>.</li>
 </ul> </div> <footer class="sl-flex astro-3yyafb3n"> <div class="meta sl-flex astro-3yyafb3n">   </div> <div class="pagination-links print:hidden astro-u2l5gyhi" dir="ltr"> <a href="/getting-started/download-install-square-orb-gallery/" rel="prev" class="astro-u2l5gyhi"> <svg aria-hidden="true" class="astro-u2l5gyhi astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17 11H9.41l3.3-3.29a1.004 1.004 0 1 0-1.42-1.42l-5 5a1 1 0 0 0-.21.33 1 1 0 0 0 0 .76 1 1 0 0 0 .21.33l5 5a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095L9.41 13H17a1 1 0 0 0 0-2Z"/></svg>  <span class="astro-u2l5gyhi"> Previous <br class="astro-u2l5gyhi"> <span class="link-title astro-u2l5gyhi">Download &amp; Install</span> </span> </a> <a href="/getting-started/faqs/" rel="next" class="astro-u2l5gyhi"> <svg aria-hidden="true" class="astro-u2l5gyhi astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.5rem;"><path d="M17.92 11.62a1.001 1.001 0 0 0-.21-.33l-5-5a1.003 1.003 0 1 0-1.42 1.42l3.3 3.29H7a1 1 0 0 0 0 2h7.59l-3.3 3.29a1.002 1.002 0 0 0 .325 1.639 1 1 0 0 0 1.095-.219l5-5a1 1 0 0 0 .21-.33 1 1 0 0 0 0-.76Z"/></svg>  <span class="astro-u2l5gyhi"> Next <br class="astro-u2l5gyhi"> <span class="link-title astro-u2l5gyhi">FAQs</span> </span> </a> </div>   </footer>  </div> </div>   </main> </div> </div>  </div> </div>  </body></html>

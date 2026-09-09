@@ -1,4 +1,46 @@
-<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Layout Style Deep Dive | Square Orb Documentation</title><link rel="canonical"/><link rel="shortcut icon" href="/square-orb-logo.png" type="image/png"/><meta name="generator" content="Astro v5.18.2"/><meta name="generator" content="Starlight v0.32.6"/><meta property="og:title" content="Layout Style Deep Dive"/><meta property="og:type" content="article"/><meta property="og:url"/><meta property="og:locale" content="en"/><meta property="og:description" content="Explore the five distinct presentation modes and layout customization options."/><meta property="og:site_name" content="Square Orb Documentation"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Explore the five distinct presentation modes and layout customization options."/><script>
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="dark" data-has-toc data-has-sidebar class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Layout Style Deep Dive | Square Orb Documentation</title><link rel="canonical"/><script>
+            (function() {
+              function processLinks() {
+                document.querySelectorAll('a[href]').forEach(function(a) {
+                  var href = a.getAttribute('href') || '';
+                  var hasBlank = href.endsWith('#_blank') || href.includes('#_blank?') || href.includes('#_blank#');
+                  var isExt = /^(https?:)?\/\//i.test(href) && !href.includes(window.location.host);
+                  var isSelf = href.endsWith('#_self') || href.includes('target=_self');
+                  if ((hasBlank || isExt) && !isSelf) {
+                    a.setAttribute('target', '_blank');
+                    a.setAttribute('rel', 'noopener noreferrer');
+                    if (hasBlank) {
+                      a.setAttribute('href', href.replace(/#_blank$/, '').replace(/#_blank\?/, '?').replace(/#_blank#/, '#'));
+                    }
+                  } else if (isSelf) {
+                    a.setAttribute('target', '_self');
+                    a.setAttribute('href', href.replace(/#_self$/, ''));
+                  }
+                });
+              }
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', processLinks);
+              } else {
+                processLinks();
+              }
+              document.addEventListener('astro:page-load', processLinks);
+              document.addEventListener('click', function(e) {
+                var a = e.target.closest('a[href]');
+                if (!a) return;
+                var href = a.getAttribute('href') || '';
+                var hasBlank = href.endsWith('#_blank') || href.includes('#_blank?') || href.includes('#_blank#');
+                var isExt = /^(https?:)?\/\//i.test(href) && !href.includes(window.location.host);
+                var isSelf = href.endsWith('#_self') || href.includes('target=_self');
+                if ((hasBlank || isExt) && !isSelf) {
+                  a.setAttribute('target', '_blank');
+                  a.setAttribute('rel', 'noopener noreferrer');
+                  if (hasBlank) {
+                    a.setAttribute('href', href.replace(/#_blank$/, '').replace(/#_blank\?/, '?').replace(/#_blank#/, '#'));
+                  }
+                }
+              }, true);
+            })();
+          </script><link rel="shortcut icon" href="/square-orb-logo.png" type="image/png"/><meta name="generator" content="Astro v5.18.2"/><meta name="generator" content="Starlight v0.32.6"/><meta property="og:title" content="Layout Style Deep Dive"/><meta property="og:type" content="article"/><meta property="og:url"/><meta property="og:locale" content="en"/><meta property="og:description" content="Explore the five distinct presentation modes and layout customization options."/><meta property="og:site_name" content="Square Orb Documentation"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Explore the five distinct presentation modes and layout customization options."/><script>
 	window.StarlightThemeProvider = (() => {
 		const storedTheme =
 			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');

@@ -4,6 +4,7 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import mermaid from 'astro-mermaid';
 import { parse as parseJs } from 'acorn';
+import { visit } from 'unist-util-visit';
 
 function generateArticlesManifest() {
   const docsDir = path.resolve('./src/content/docs');
@@ -134,10 +135,41 @@ function remarkStarlightAutoImport() {
   };
 }
 
+function rehypeLinkTarget() {
+  return (tree) => {
+    visit(tree, 'element', (node) => {
+      if (node.tagName === 'a' && node.properties && node.properties.href) {
+        let href = String(node.properties.href);
+        const hasBlankHash = href.endsWith('#_blank') || href.includes('#_blank?') || href.includes('#_blank#');
+        const hasBlankQuery = href.includes('target=_blank') || href.includes('_blank=1');
+        const isExternal = /^(https?:)?\/\//i.test(href);
+        const hasExplicitSelf = href.endsWith('#_self') || href.includes('target=_self');
+
+        if ((hasBlankHash || hasBlankQuery || isExternal) && !hasExplicitSelf) {
+          node.properties.target = '_blank';
+          node.properties.rel = 'noopener noreferrer';
+          node.properties.href = href
+            .replace(/#_blank$/, '')
+            .replace(/#_blank\?/, '?')
+            .replace(/#_blank#/, '#')
+            .replace(/([?&])target=_blank&?/, '$1')
+            .replace(/[?&]$/, '');
+        } else if (hasExplicitSelf) {
+          node.properties.target = '_self';
+          node.properties.href = href
+            .replace(/#_self$/, '')
+            .replace(/([?&])target=_self&?/, '$1')
+            .replace(/[?&]$/, '');
+        }
+      }
+    });
+  };
+}
 
 export default defineConfig({
   markdown: {
     remarkPlugins: [remarkStarlightAutoImport],
+    rehypePlugins: [rehypeLinkTarget],
   },
   integrations: [
     articleManifestIntegration(),
@@ -150,6 +182,54 @@ export default defineConfig({
       favicon: '/square-orb-logo.png',
       customCss: [
         './src/styles/custom.css',
+      ],
+      head: [
+        {
+          tag: 'script',
+          content: `
+            (function() {
+              function processLinks() {
+                document.querySelectorAll('a[href]').forEach(function(a) {
+                  var href = a.getAttribute('href') || '';
+                  var hasBlank = href.endsWith('#_blank') || href.includes('#_blank?') || href.includes('#_blank#');
+                  var isExt = /^(https?:)?\\/\\//i.test(href) && !href.includes(window.location.host);
+                  var isSelf = href.endsWith('#_self') || href.includes('target=_self');
+                  if ((hasBlank || isExt) && !isSelf) {
+                    a.setAttribute('target', '_blank');
+                    a.setAttribute('rel', 'noopener noreferrer');
+                    if (hasBlank) {
+                      a.setAttribute('href', href.replace(/#_blank$/, '').replace(/#_blank\\?/, '?').replace(/#_blank#/, '#'));
+                    }
+                  } else if (isSelf) {
+                    a.setAttribute('target', '_self');
+                    a.setAttribute('href', href.replace(/#_self$/, ''));
+                  }
+                });
+              }
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', processLinks);
+              } else {
+                processLinks();
+              }
+              document.addEventListener('astro:page-load', processLinks);
+              document.addEventListener('click', function(e) {
+                var a = e.target.closest('a[href]');
+                if (!a) return;
+                var href = a.getAttribute('href') || '';
+                var hasBlank = href.endsWith('#_blank') || href.includes('#_blank?') || href.includes('#_blank#');
+                var isExt = /^(https?:)?\\/\\//i.test(href) && !href.includes(window.location.host);
+                var isSelf = href.endsWith('#_self') || href.includes('target=_self');
+                if ((hasBlank || isExt) && !isSelf) {
+                  a.setAttribute('target', '_blank');
+                  a.setAttribute('rel', 'noopener noreferrer');
+                  if (hasBlank) {
+                    a.setAttribute('href', href.replace(/#_blank$/, '').replace(/#_blank\\?/, '?').replace(/#_blank#/, '#'));
+                  }
+                }
+              }, true);
+            })();
+          `,
+        },
       ],
       sidebar: [
         {

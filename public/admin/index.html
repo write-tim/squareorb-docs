@@ -160,6 +160,35 @@
         margin-top: 0.35rem;
         line-height: 1.3;
       }
+
+      /* Link Target (New Window) Option Styling */
+      .cms-link-target-section {
+        margin-top: 0.85rem;
+        margin-bottom: 0.35rem;
+        display: flex;
+        align-items: center;
+      }
+      .cms-link-target-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        font-size: 0.85rem;
+        color: #334155;
+        font-weight: 500;
+        cursor: pointer;
+        user-select: none;
+      }
+      .cms-link-target-checkbox {
+        width: 1.05rem;
+        height: 1.05rem;
+        margin: 0;
+        cursor: pointer;
+        accent-color: #7c3aed;
+        border-radius: 4px;
+      }
+      .cms-link-target-label:hover .cms-link-target-text {
+        color: #0f172a;
+      }
     </style>
   </head>
   <body>
@@ -569,6 +598,9 @@
           if (!selectedRoute) return;
 
           setInputValue(urlInput, selectedRoute);
+          if (!isUserToggled) {
+            targetCheckbox.checked = false;
+          }
 
           const textInput = dialog.querySelector('input[id$="-text"], input[aria-label="Text"]');
           const selectedOpt = select.options[select.selectedIndex];
@@ -583,6 +615,99 @@
 
         // Insert picker right before the URL input field
         urlRow.parentNode.insertBefore(picker, urlRow);
+
+        // ---------------------------------------------------------------
+        // Option to Open Link in a New Window
+        // ---------------------------------------------------------------
+        const targetSection = document.createElement('div');
+        targetSection.className = 'cms-link-target-section';
+        targetSection.innerHTML = `
+          <label class="cms-link-target-label">
+            <input type="checkbox" class="cms-link-target-checkbox" id="cms-link-target-blank" />
+            <span class="cms-link-target-text">Open link in a new window</span>
+          </label>
+        `;
+        const targetCheckbox = targetSection.querySelector('.cms-link-target-checkbox');
+
+        // Place targetSection right after the fields and before the dialog footer buttons
+        const footer = dialog.querySelector('footer');
+        if (footer && footer.parentNode) {
+          footer.parentNode.insertBefore(targetSection, footer);
+        } else {
+          urlRow.parentNode.insertBefore(targetSection, urlRow.nextSibling);
+        }
+
+        let isUserToggled = false;
+        let initialVal = (urlInput.value || '').trim();
+
+        function checkIsExternal(val) {
+          return /^(https?:)?\/\//i.test(val);
+        }
+
+        // Initialize checkbox state from existing URL
+        if (initialVal.endsWith('#_blank')) {
+          targetCheckbox.checked = true;
+          const clean = initialVal.slice(0, -7);
+          setInputValue(urlInput, clean);
+        } else if (initialVal.endsWith('#_self')) {
+          targetCheckbox.checked = false;
+          const clean = initialVal.slice(0, -6);
+          setInputValue(urlInput, clean);
+          isUserToggled = true;
+        } else if (checkIsExternal(initialVal)) {
+          targetCheckbox.checked = true;
+        } else {
+          targetCheckbox.checked = false;
+        }
+
+        targetCheckbox.addEventListener('change', function () {
+          isUserToggled = true;
+        });
+
+        urlInput.addEventListener('input', function () {
+          const val = urlInput.value.trim();
+          if (!isUserToggled) {
+            if (checkIsExternal(val)) {
+              targetCheckbox.checked = true;
+            } else if (val.startsWith('/') || val.startsWith('#')) {
+              targetCheckbox.checked = false;
+            }
+          }
+        });
+
+        function applyLinkTargetToInput() {
+          let currentVal = urlInput.value.trim();
+          if (!currentVal) return;
+
+          currentVal = currentVal.replace(/#(?:_blank|_self)$/, '');
+
+          if (targetCheckbox.checked) {
+            setInputValue(urlInput, currentVal + '#_blank');
+          } else {
+            if (checkIsExternal(currentVal) && isUserToggled) {
+              setInputValue(urlInput, currentVal + '#_self');
+            } else {
+              setInputValue(urlInput, currentVal);
+            }
+          }
+        }
+
+        // Intercept primary action button click (capture phase)
+        dialog.addEventListener('click', function (e) {
+          const btn = e.target.closest('button');
+          if (!btn) return;
+          const isCancel = btn.textContent && (btn.textContent.includes('Cancel') || btn.textContent.includes('cancel'));
+          if (!isCancel && (btn.classList.contains('primary') || btn.type === 'submit' || (btn.parentElement && btn.parentElement.tagName === 'FOOTER'))) {
+            applyLinkTargetToInput();
+          }
+        }, true);
+
+        // Intercept Enter keydown in inputs (capture phase)
+        dialog.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter') {
+            applyLinkTargetToInput();
+          }
+        }, true);
       }
 
       function initLinkDialogObserver() {
