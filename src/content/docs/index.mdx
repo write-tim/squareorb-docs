@@ -1,10 +1,9 @@
 ---
 title: Square Orb Documentation
-description: The official knowledge base for the Square Orb WordPress gallery plugin.
+description: Official guides, layout tutorials, cloud integration walkthroughs, and developer references for the Square Orb WordPress gallery plugin.
 template: splash
 hero:
-  tagline: A comprehensive guide to using the Square Orb Gallery plugin.
-
+  tagline: Create stunning responsive photo galleries, sync effortlessly with Google Photos and Adobe, and protect your media with non-destructive watermarks.
   image:
     file: ../../assets/square-orb-logo.svg
   actions:
@@ -12,29 +11,79 @@ hero:
       link: /getting-started/download-install-square-orb-gallery/
       icon: right-arrow
       variant: primary
+    - text: Explore Layout Styles
+      link: /gallery-management/layout-style/
+      icon: puzzle
+      variant: secondary
     - text: Back to Square Orb Website
       link: https://awesomediscoveryzone.com/squareorb
       icon: external
       variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard, Steps } from '@astrojs/starlight/components';
 
-While we're certain our plugin is intuitive enough that you probably don't need these docs, they're here for you, just in case.
+## Quick Start: First Gallery in 3 Steps
 
-## Plugin Features
+<Steps>
+1. **Download & Install:**
+   Upload `square-orb.zip` in **WordPress Admin > Plugins > Add New** and click **Activate**.
+2. **Add the Canvas Block:**
+   Open the block editor on any page or post and add the **Gallery Canvas** block.
+3. **Choose Your Layout & Publish:**
+   Select Masonry, Justified, Carousel, or Traveler's Map, select your images, and publish!
+</Steps>
+
+---
+
+## Explore Documentation by Topic
+
+<CardGrid>
+  <LinkCard
+    title="1. Getting Started"
+    description="Plugin installation, admin control panel tour, and frequently asked questions."
+    href="/getting-started/download-install-square-orb-gallery/"
+  />
+  <LinkCard
+    title="2. Gallery Design & Layouts"
+    description="Deep dives on Masonry, Justified rows, Traveler's Map GPS layout, and video streaming."
+    href="/gallery-management/layout-style/"
+  />
+  <LinkCard
+    title="3. Cloud & Storage Sync"
+    description="Connect Google Photos, set up Adobe Lightroom sync, and enable Google Vision AI tags."
+    href="/cloud-integration/cloud-integration-overview/"
+  />
+  <LinkCard
+    title="4. Developer & Advanced Reference"
+    description="Complete shortcode parameters, WordPress action/filter hooks, and REST API docs."
+    href="/advanced-features/developer-reference/"
+  />
+</CardGrid>
+
+---
+
+## Popular Guides & References
 
 <CardGrid stagger>
-	<Card title="Google Photos Import" icon="laptop">
-		Quickly import images from Google Photos directly into to your live galleries.
-	</Card>
-	<Card title="Advanced EXIF Extraction" icon="magnifier">
-		Automatically pull and display detailed technical metadata alongside your images, from camera configurations to complex exposure bracketing settings.
-	</Card>
-	<Card title="Responsive Gallery Layouts" icon="rocket">
-		Build touch-friendly masonry grids, justified rows, and interactive carousels that adapt perfectly to any screen size.
-	</Card>
-	<Card title="Image Protection" icon="setting">
-		Safeguard your high-resolution files using dynamic watermarking and right-click deterrents without sacrificing visual quality.
-	</Card>
+  <LinkCard
+    title="Layout Style Deep Dive"
+    description="Compare Masonry, Justified, Mosaic, Grid, and Carousel with recommended aspect ratios."
+    href="/gallery-management/layout-style/"
+  />
+  <LinkCard
+    title="Shortcode Reference"
+    description="Full attribute list and copy-paste syntax for embedding galleries anywhere."
+    href="/advanced-features/shortcode-reference/"
+  />
+  <LinkCard
+    title="Watermarking & Protection"
+    description="Configure non-destructive PNG watermarks and right-click deterrents."
+    href="/gallery-management/watermarking-guide/"
+  />
+  <LinkCard
+    title="Troubleshooting & FAQs"
+    description="Fast solutions for caching, OAuth credentials, and thumbnail regeneration."
+    href="/advanced-features/troubleshooting-faq/"
+  />
 </CardGrid>

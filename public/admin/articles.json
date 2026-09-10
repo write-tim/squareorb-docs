@@ -184,7 +184,7 @@
   {
     "title": "Square Orb Documentation",
     "route": "/",
-    "desc": "The official knowledge base for the Square Orb WordPress gallery plugin.",
+    "desc": "Official guides, layout tutorials, cloud integration walkthroughs, and developer references for the Square Orb WordPress gallery plugin.",
     "category": "Home",
     "file": "index.mdx"
   }
