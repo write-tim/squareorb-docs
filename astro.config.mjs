@@ -135,6 +135,54 @@ function remarkStarlightAutoImport() {
   };
 }
 
+function remarkNormalizeSteps() {
+  return (tree) => {
+    visit(tree, (node) => {
+      if (
+        (node.type === 'mdxJsxFlowElement' || node.type === 'mdxJsxTextElement') &&
+        node.name === 'Steps' &&
+        Array.isArray(node.children) &&
+        node.children.length > 0
+      ) {
+        const newChildren = [];
+        let currentList = null;
+
+        for (const child of node.children) {
+          if (child.type === 'text' && !child.value.trim()) {
+            continue;
+          }
+
+          if (child.type === 'list' && child.ordered) {
+            if (!currentList) {
+              currentList = child;
+              newChildren.push(currentList);
+            } else {
+              if (Array.isArray(child.children)) {
+                currentList.children.push(...child.children);
+              }
+            }
+          } else {
+            if (currentList && currentList.children.length > 0) {
+              const lastListItem = currentList.children[currentList.children.length - 1];
+              if (Array.isArray(lastListItem.children)) {
+                lastListItem.children.push(child);
+              } else {
+                lastListItem.children = [child];
+              }
+            } else {
+              newChildren.push(child);
+            }
+          }
+        }
+
+        if (currentList) {
+          node.children = newChildren;
+        }
+      }
+    });
+  };
+}
+
 function rehypeLinkTarget() {
   return (tree) => {
     visit(tree, 'element', (node) => {
@@ -168,7 +216,7 @@ function rehypeLinkTarget() {
 
 export default defineConfig({
   markdown: {
-    remarkPlugins: [remarkStarlightAutoImport],
+    remarkPlugins: [remarkStarlightAutoImport, remarkNormalizeSteps],
     rehypePlugins: [rehypeLinkTarget],
   },
   integrations: [
